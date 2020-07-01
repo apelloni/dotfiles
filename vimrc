@@ -29,3 +29,4 @@ call plug#end()
 " With the ale plugin to work with rust
 "let g:ale_linters = {'rust': ['cargo', 'rls', 'analyzer']} 
 let g:ale_linters = {'python': ['mypy', 'pylint']} 
+let g:ale_fixers = {'python': ['autopep8', 'isort']} 
