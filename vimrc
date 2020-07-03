@@ -11,7 +11,7 @@ call plug#begin('~/.vim/plugged')
 
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
-" Lightline 
+" Lightline
 Plug 'https://github.com/itchyny/lightline.vim'
 " Nerd Tree
 Plug 'preservim/nerdtree'
@@ -27,6 +27,6 @@ Plug 'w0rp/ale'
 call plug#end()
 
 " With the ale plugin to work with rust
-"let g:ale_linters = {'rust': ['cargo', 'rls', 'analyzer']} 
-let g:ale_linters = {'python': ['mypy', 'pylint']} 
-let g:ale_fixers = {'python': ['autopep8', 'isort']} 
+"let g:ale_linters = {'rust': ['cargo', 'rls', 'analyzer']}
+let g:ale_linters = {'python': ['mypy', 'pylint']}
+let g:ale_fixers = {'python': ['autopep8', 'isort']}
