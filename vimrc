@@ -9,6 +9,8 @@ call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
 
+" Reopen from last edited line
+Plug 'farmergreg/vim-lastplace'
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
 " Lightline
