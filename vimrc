@@ -1,4 +1,5 @@
 set number
+colorscheme koehler
 
 " Load all the plugins using  junegunn/vim-plug as manager
 
@@ -15,6 +16,8 @@ Plug 'farmergreg/vim-lastplace'
 Plug 'junegunn/vim-easy-align'
 " Lightline
 Plug 'https://github.com/itchyny/lightline.vim'
+" Preview ColorScheme
+Plug  'mnishz/colorscheme-preview.vim'
 " Nerd Tree
 Plug 'preservim/nerdtree'
 " show git changes
