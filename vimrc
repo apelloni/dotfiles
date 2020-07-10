@@ -1,5 +1,5 @@
 set number
-colorscheme koehler
+silent! colorscheme koehler
 
 " Load all the plugins using  junegunn/vim-plug as manager
 
@@ -26,12 +26,23 @@ Plug 'airblade/vim-gitgutter'
 Plug 'https://github.com/terryma/vim-multiple-cursors'
 Plug 'tpope/vim-sensible'
 
+" ALE for formatting and checking syntax
 Plug 'w0rp/ale'
+
+" Themes
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'kyoz/purify', { 'rtp': 'vim/' }
 
 " Initialize plugin system
 call plug#end()
 
-" With the ale plugin to work with rust
-"let g:ale_linters = {'rust': ['cargo', 'rls', 'analyzer']}
-let g:ale_linters = {'python': ['mypy', 'pylint']}
-let g:ale_fixers = {'python': ['autopep8', 'isort']}
+" With the ale plugin to highlight syntax problems
+let g:ale_linters = {
+\	'python': ['mypy', 'pylint'],
+\	'rust': ['cargo', 'rls', 'analyzer']
+\}
+" With the ale plugin to format document
+let g:ale_fixers = {
+\	'python': ['autopep8', 'isort'],
+\	'rust': ['rustfmt']
+\}
