@@ -26,6 +26,8 @@ Plug 'rhysd/conflict-marker.vim'
 " multi cursor with <C-n>
 Plug 'https://github.com/terryma/vim-multiple-cursors'
 Plug 'tpope/vim-sensible'
+" Illuminate selected work
+Plug 'RRethy/vim-illuminate'
 
 " ALE for formatting and checking syntax
 Plug 'w0rp/ale'
