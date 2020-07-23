@@ -1,5 +1,13 @@
 set number
+
+syntax on
+"set termguicolors
 silent! colorscheme koehler
+
+hi CursorLine cterm=underline,bold
+"hi CursorLine cterm=NONE ctermbg=darkgray
+nnoremap H :set cursorline!<CR>
+
 
 " Load all the plugins using  junegunn/vim-plug as manager
 
@@ -28,6 +36,9 @@ Plug 'https://github.com/terryma/vim-multiple-cursors'
 Plug 'tpope/vim-sensible'
 " Illuminate selected work
 Plug 'RRethy/vim-illuminate'
+" Rainbow parenthesis for the win
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 1 
 
 " ALE for formatting and checking syntax
 Plug 'w0rp/ale'
@@ -38,6 +49,7 @@ Plug 'kyoz/purify', { 'rtp': 'vim/' }
 
 " Initialize plugin system
 call plug#end()
+
 
 " With the ale plugin to highlight syntax problems
 let g:ale_linters = {
