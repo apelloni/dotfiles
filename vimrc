@@ -18,6 +18,10 @@ call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
 
+" improved highlight python syntax 
+Plug 'vim-python/python-syntax'
+let g:python_highlight_all = 1
+
 " Reopen from last edited line
 Plug 'farmergreg/vim-lastplace'
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
