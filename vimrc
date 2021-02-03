@@ -68,12 +68,18 @@ call plug#end()
 " With the ale plugin to highlight syntax problems
 let g:ale_linters = {
 \	'python': ['mypy', 'pylint'],
-\	'rust': ['cargo', 'rls', 'analyzer']
+\	'rust': ['cargo', 'rls', 'analyzer'],
+\	'yaml': ['yamllint'],
+\	'cpp': ['clang-tidy'],
+\	'c': ['clang-tidy'],
 \}
 " With the ale plugin to format document
 let g:ale_fixers = {
 \	'python': ['autopep8', 'isort'],
-\	'rust': ['rustfmt']
+\	'rust': ['rustfmt'],
+\	'yaml': ['yamlfix'],
+\	'cpp': ['clang-format'],
+\	'c': ['clang-format'],
 \}
 
 " Vim conflic marker
