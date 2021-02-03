@@ -50,10 +50,19 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Themes
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'kyoz/purify', { 'rtp': 'vim/' }
+Plug 'ParamagicDev/vim-medic_chalk'
+Plug 'gryf/wombat256grf'
+Plug 'bluz71/vim-nightfly-guicolors'	
+Plug 'artanikin/vim-synthwave84'
 
 " Initialize plugin system
 call plug#end()
+
+" ColorScheme from plug-ins
+"set termguicolors
+"set t_Co=256
+"set t_ut= ""
+"colorscheme wombat256grf
 
 
 " With the ale plugin to highlight syntax problems
