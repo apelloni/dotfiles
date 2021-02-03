@@ -43,9 +43,10 @@ Plug 'RRethy/vim-illuminate'
 " Rainbow parenthesis for the win
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1 
-
 " ALE for formatting and checking syntax
 Plug 'w0rp/ale'
+"Autocomplete
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Themes
 Plug 'dracula/vim', { 'as': 'dracula' }
@@ -81,3 +82,9 @@ highlight ConflictMarkerBegin guibg=#2f7366
 highlight ConflictMarkerOurs guibg=#2e5049
 highlight ConflictMarkerTheirs guibg=#344f69
 highlight ConflictMarkerEnd guibg=#2f628e
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :  "\<TAB>" 
