@@ -1,6 +1,15 @@
 set number
 
 syntax on
+
+filetype plugin indent on
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
+
 "set termguicolors
 silent! colorscheme koehler
 
@@ -22,16 +31,29 @@ call plug#begin('~/.vim/plugged')
 Plug 'vim-python/python-syntax'
 let g:python_highlight_all = 1
 
+" File manger 
+" The first time it needs 
+"  :CocInstall coc-explorer
+Plug 'weirongxu/coc-explorer'
+nnoremap <space>e :CocCommand explorer<CR>
+
+" devicons 
+Plug 'ryanoasis/vim-devicons'
+
+" Mathematica syntax 
+Plug 'voldikss/vim-mma'
+
 " Reopen from last edited line
 Plug 'farmergreg/vim-lastplace'
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
-" Lightline
-Plug 'https://github.com/itchyny/lightline.vim'
+" Airline with powerline font
+Plug 'vim-airline/vim-airline'
+let g:airline_powerline_fonts = 1
 " Preview ColorScheme
 Plug  'mnishz/colorscheme-preview.vim'
 " Nerd Tree
-Plug 'preservim/nerdtree'
+"Plug 'preservim/nerdtree'
 " show git changes
 Plug 'airblade/vim-gitgutter'
 Plug 'rhysd/conflict-marker.vim'
@@ -47,6 +69,15 @@ let g:rainbow_active = 1
 Plug 'w0rp/ale'
 "Autocomplete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Allow transparency on all themes
+"Plug 'Kjwon15/vim-transparent'
+
+" File Header
+Plug 'alpertuna/vim-header'
+let g:header_auto_add_header = 0
+let g:header_field_author = 'Andrea Pelloni'
+let g:header_field_author_email = 'apelloni'
+map <F4> :AddHeader<CR>
 
 " Themes
 Plug 'dracula/vim', { 'as': 'dracula' }
@@ -54,32 +85,39 @@ Plug 'ParamagicDev/vim-medic_chalk'
 Plug 'gryf/wombat256grf'
 Plug 'bluz71/vim-nightfly-guicolors'	
 Plug 'artanikin/vim-synthwave84'
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'nanotech/jellybeans.vim'
+Plug 'morhetz/gruvbox'
 
 " Initialize plugin system
 call plug#end()
 
 " ColorScheme from plug-ins
-"set termguicolors
-"set t_Co=256
-"set t_ut= ""
+set termguicolors
+set t_Co=256
+set t_ut= ""
 "colorscheme wombat256grf
+colorscheme nightfly
 
 
-" With the ale plugin to highlight syntax problems
+" With the ale plugin to highlight  syntax problems
 let g:ale_linters = {
 \	'python': ['mypy', 'pylint'],
-\	'rust': ['cargo', 'rls', 'analyzer'],
-\	'yaml': ['yamllint'],
-\	'cpp': ['clang-tidy'],
+\	'rust': ['cargo', 'rls',  'analyzer'],
+\	'yaml': ['yamllint'],  
+\	'cpp': ['clang-tidy'], 
 \	'c': ['clang-tidy'],
+\	'sh': ['shellcheck'],
 \}
 " With the ale plugin to format document
 let g:ale_fixers = {
 \	'python': ['autopep8', 'isort'],
 \	'rust': ['rustfmt'],
 \	'yaml': ['yamlfix'],
+\	'json': ['fixjson'],
 \	'cpp': ['clang-format'],
 \	'c': ['clang-format'],
+\	'sh': ['shfmt'],
 \}
 
 " Vim conflic marker
@@ -103,3 +141,7 @@ highlight ConflictMarkerEnd guibg=#2f628e
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :  "\<TAB>" 
+
+"explorer.icon.enableVimDevicons": true
+"explorer.icon.enableNerdfont": true
+
