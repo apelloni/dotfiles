@@ -1,0 +1,172 @@
+{
+  "explorer.position": "left",
+  "explorer.width": 35,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.icon.enableVimDevicons": true,
+  "explorer.file.showHiddenFiles": true,
+  "explorer.quitOnOpen": false,
+  "explorer.previewAction.onHover": "labeling",
+  "explorer.sources": [
+    {
+      "name": "buffer",
+      "expand": true
+    },
+    {
+      "name": "file",
+      "expand": true
+    }
+  ],
+  "explorer.buffer.root.template": "[icon & 1] OPEN EDITORS",
+  "explorer.file.root.template": "[icon & 1] PROJECT([root])",
+  "explorer.keyMappings.global": {
+    "i": false,
+    "*": "toggleSelection",
+    "<tab>": "actionMenu",
+    "gk": [
+      "wait",
+      "expandablePrev"
+    ],
+    "gj": [
+      "wait",
+      "expandableNext"
+    ],
+    "h": [
+      "wait",
+      "collapse"
+    ],
+    "l": [
+      "wait",
+      "expandable?",
+      "expand",
+      "open"
+    ],
+    "J": [
+      "wait",
+      "toggleSelection",
+      "normal:j"
+    ],
+    "K": [
+      "wait",
+      "toggleSelection",
+      "normal:k"
+    ],
+    "gl": [
+      "wait",
+      "expand:recursive"
+    ],
+    "gh": [
+      "wait",
+      "collapse:recursive"
+    ],
+    "<2-LeftMouse>": [
+      "expandable?",
+      [
+        "expanded?",
+        "collapse",
+        "expand"
+      ],
+      "open"
+    ],
+    "o": [
+      "wait",
+      "expanded?",
+      "collapse",
+      "expand"
+    ],
+    "<cr>": [
+      "wait",
+      "expandable?",
+      "cd",
+      "open"
+    ],
+    "e": "open",
+    "H": "open:split",
+    "V": "open:vsplit",
+    "t": "open:tab",
+    "<bs>": [
+      "wait",
+      "gotoParent"
+    ],
+    "gs": [
+      "wait",
+      "reveal:select"
+    ],
+    "il": "preview:labeling",
+    "ic": "preview:content",
+    "Il": "previewOnHover:toggle:labeling",
+    "Ic": "previewOnHover:toggle:content",
+    "II": "previewOnHover:disable",
+    "yp": "copyFilepath",
+    "yn": "copyFilename",
+    "yy": "copyFile",
+    "dd": "cutFile",
+    "p": "pasteFile",
+    "df": "delete",
+    "dF": "deleteForever",
+    "a": "addFile",
+    "A": "addDirectory",
+    "r": "rename",
+    "zh": "toggleHidden",
+    "g<dot>": "toggleHidden",
+    "R": "refresh",
+    "?": "help",
+    "q": "quit",
+    "<esc>": "esc",
+    "X": "systemExecute",
+    "gd": "listDrive",
+    "f": "search",
+    "F": "searchRecursive",
+    "gf": "gotoSource:file",
+    "gb": "gotoSource:buffer",
+    "[[": [
+      "wait",
+      "sourcePrev"
+    ],
+    "]]": [
+      "wait",
+      "sourceNext"
+    ],
+    "[i": [
+      "wait",
+      "indentPrev"
+    ],
+    "]i": [
+      "wait",
+      "indentNext"
+    ],
+    "[m": [
+      "wait",
+      "markPrev:modified"
+    ],
+    "]m": [
+      "wait",
+      "markNext:modified"
+    ],
+    "[d": [
+      "wait",
+      "markPrev:diagnosticError:diagnosticWarning"
+    ],
+    "]d": [
+      "wait",
+      "markNext:diagnosticError:diagnosticWarning"
+    ],
+    "[D": [
+      "wait",
+      "markPrev:diagnosticError"
+    ],
+    "]D": [
+      "wait",
+      "markNext:diagnosticError"
+    ],
+    "[c": [
+      "wait",
+      "markPrev:git"
+    ],
+    "]c": [
+      "wait",
+      "markNext:git"
+    ],
+    "<<": "gitStage",
+    ">>": "gitUnstage"
+  }
+}
