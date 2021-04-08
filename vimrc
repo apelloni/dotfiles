@@ -50,6 +50,9 @@ Plug 'junegunn/vim-easy-align'
 " Airline with powerline font
 Plug 'vim-airline/vim-airline'
 let g:airline_powerline_fonts = 1
+Plug 'vim-airline/vim-airline-themes'
+let g:airline_theme= "deus" 
+
 " Preview ColorScheme
 Plug  'mnishz/colorscheme-preview.vim'
 " Nerd Tree
@@ -142,6 +145,4 @@ highlight ConflictMarkerEnd guibg=#2f628e
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :  "\<TAB>" 
 
-"explorer.icon.enableVimDevicons": true
-"explorer.icon.enableNerdfont": true
 
