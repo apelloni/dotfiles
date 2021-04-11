@@ -1,0 +1,62 @@
+#!/bin/bash
+# brightness: Change all monitors brightness in software.
+# by hackerb9, 2019
+
+# Examples:  brightness 75;  brightness -5; brightness +10
+# Usage:
+#       brightess [n] [+n] [-n]
+#       n       An integer from 0 to 100 specifies a brightness level.
+#       +n      Increase brightness by n.
+#       -n      Decrease brightness by n.
+#               No argument shows current brightness level.
+
+# Use xrandr only when the gdbus brightness is already at the lowest level
+
+b=$(xrandr --current --verbose | grep Brightness)
+echo $b
+b=${b#*: }                      # Remove "Brightness: "
+b=${b#0.}                       # 0.30... --> 30...
+b=${b:0:2}                      # 30... --> 30
+
+[[ $b == "1." ]] && b="100"
+case $1 in
+    +*)
+        if [[ $b -ge 100 ]]; then 
+            gdbus call --session\
+                --dest org.gnome.SettingsDaemon.Power\
+                --object-path /org/gnome/SettingsDaemon/Power\
+                --method org.gnome.SettingsDaemon.Power.Screen.StepUp
+        fi
+        b=$((b $1))                   # b=b+10
+        ;;
+    -*)
+        gb=$(gdbus call --session\
+            --dest org.gnome.SettingsDaemon.Power\
+            --object-path /org/gnome/SettingsDaemon/Power\
+            --method org.gnome.SettingsDaemon.Power.Screen.StepDown)
+        gb=$(echo $gb | sed -r "s/\(([0-9]+),.*/\1/g")
+        [[ $gb == "0" ]] &&  b=$((b $1)) # b=b-10
+        ;;
+    [0-9]*)
+        b=$1                    # b=75
+        ;;
+    *)
+        echo $b; exit
+        ;;
+esac
+echo $b
+
+#[[ $b -lt 0 ]] && b=0
+[[ $b -lt 20 ]] && b=20
+[[ $b -gt 100 ]] && b=100
+
+if [[ $b -eq 100 ]]; then
+    b=1.0
+else
+    b=$(printf "0.%.2d" $b)
+fi
+echo $b
+outputs=$(xrandr --current | awk '$2 == "connected" {print $1}')
+for o in $outputs; do
+    xrandr --output $o --brightness $b
+done
