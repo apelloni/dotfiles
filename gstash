@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Check if call for stashing
+if [[ -z $1 ]]; then
+    git stash
+    exit $?
+fi
+
+if [[ $# -gt 1 ]]; then
+    echo "At most one argument (apply|pop|drop|list)."
+    exit 1
+fi
+
+# If there is an agument check it is one of the test case
+case $1 in
+apply)
+    # Select stash to apply
+    GSTASH=$(git stash list | fzf --layout=reverse --height=10 | grep -Eo "stash@\{[0-9]+\}")
+    git stash apply "$GSTASH"
+    ;;
+pop)
+    # Select stash to pop
+    GSTASH=$(git stash list | fzf --layout=reverse --height=10 | grep -Eo "stash@\{[0-9]+\}")
+    git stash pop "$GSTASH"
+    ;;
+drop)
+    # Select stash or stashes (TAB and SHIFT+TAB) to be dropped
+    GSTASH=$(git stash list | fzf -m --layout=reverse --height=10 | grep -Eo "stash@\{[0-9]+\}" | tac)
+    for STASH in "${GSTASH[@]}"; do
+        git stash drop "$STASH"
+    done
+    ;;
+list)
+    GSTASH=$(git stash list | fzf --layout=reverse --height=10 | grep -Eo "stash@\{[0-9]+\}") || exit 0
+    ;;
+*) $0 $1 "No idea" ;;
+esac
+
+#GSTASH=$(git stash list | fzf --layout=reverse --height=10 | grep -Eo "stash@\{[0-9]+\}") && git stash apply $GSTASH
+#GSTASH=$(git stash list | fzf --layout=reverse --height=10 | grep -Eo "stash@\{[0-9]+\}") && git stash apply $GSTASH
