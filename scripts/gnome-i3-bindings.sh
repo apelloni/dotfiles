@@ -54,6 +54,14 @@ gsettings set org.gnome.shell.extensions.pop-shell focus-down "['<Ctrl>Down']"
 gsettings set org.gnome.shell.extensions.pop-shell focus-left "['<Ctrl>Left']"
 gsettings set org.gnome.shell.extensions.pop-shell focus-right "['<Ctrl>Right']"
 
+# toggle stacking mode
+gsettings set org.gnome.shell.keybindings toggle-overview "[]"
+gsettings set org.gnome.shell.extensions.pop-shell toggle-stacking-global" ['<Super>s']"
+
+# toggle maximize 
+gsettings set org.gnome.shell.keybindings toggle-message-tray "['<Super>v']"
+gsettings set org.gnome.desktop.wm.keybindings toggle-maximized "['<Super>m']"
+
 # Close window
 gsettings set org.gnome.desktop.wm.keybindings close "['<Alt>F4', '<Super>Q']"
 
