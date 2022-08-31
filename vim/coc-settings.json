@@ -1,10 +1,14 @@
 {
+  "suggest.noselect": true,
+  "rust-analyzer.diagnostics.disabled": [
+    "inactive-code"
+  ],
   "explorer.position": "left",
   "explorer.width": 35,
   "explorer.icon.enableNerdfont": true,
-  "explorer.icon.enableVimDevicons": true,
+  "explorer.icon.source": "vim-devicons",
   "explorer.file.showHiddenFiles": true,
-  "explorer.quitOnOpen": false,
+  "explorer.quitOnOpen": true,
   "explorer.previewAction.onHover": "labeling",
   "explorer.sources": [
     {
