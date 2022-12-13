@@ -18,6 +18,10 @@ hi CursorLine cterm=underline,bold
 nnoremap H :set cursorline!<CR>
 
 
+"""""""""""""""""""""""""""
+" PLUG-IN
+"
+"""""""""""""""""""""""""""
 " Load all the plugins using  junegunn/vim-plug as manager
 
 " Specify a directory for plugins
@@ -126,6 +130,11 @@ let g:PaperColor_Theme_Options = {
 " Initialize plugin system
 call plug#end()
 
+"""""""""""""""""""""""""""
+" Theme
+"
+"""""""""""""""""""""""""""
+
 " ColorScheme from plug-ins
 set termguicolors
 set t_Co=256
@@ -136,6 +145,99 @@ set t_ut= ""
 colorscheme PaperColor
 "colorscheme OceanicNext 
 
+" Set bold line number
+set cursorline
+hi clear CursorLine
+hi CursorLineNR cterm=bold
+
+
+"""""""""""""""""""""""""""
+" Multi-Cursor
+"
+"""""""""""""""""""""""""""
+
+let g:multi_cursor_start_word_key      = '<C-n>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+
+" Use last searched word to match all the words by 
+" calling Ctrl-s
+" Restricted to selected zone if using VISUAL mode
+nnoremap <silent> <C-s> :MultipleCursorsFind <C-R>/<CR>
+vnoremap <silent> <C-s> :MultipleCursorsFind <C-R>/<CR>
+
+"""""""""""""""""""""""""""
+" RUN Program
+"
+"""""""""""""""""""""""""""
+" Default leader '\'
+nnoremap <Leader>r :w <CR>:!%:p <CR>
+
+"""""""""""""""""""""""""""
+" FOLDING
+"
+"""""""""""""""""""""""""""
+
+" General Fold properties
+set foldmethod=indent
+set foldlevelstart=99
+set nofoldenable
+"set foldcolumn=1
+highlight Folded ctermbg=Black ctermfg=White cterm=bold
+highlight Folded   guibg=Gray30  guifg=White   gui=bold
+set fillchars=fold:\ 
+
+nnoremap <space><space> za
+
+function! CustomFold()
+	let folded_line_count = v:foldend - v:foldstart + 1
+	let prefix = '   '. folded_line_count
+	let prefix = printf('   %-5d', folded_line_count)
+	let separator = ''
+	let spaces = 0 + strlen(folded_line_count)
+
+	"while spaces < 6
+	"	let separator .= ' '
+	"	let spaces += 1
+	"endwhile
+	let separator = ' ::  '
+
+    let lineCount = line("$")
+    if has("float")
+    try
+        let foldPercentage = printf("[%4.1f", (folded_line_count*1.0)/lineCount*100) . "%] "
+	catch /^Vim\%((\a\+)\)\=:E806/	" E806: Using Float as String
+        let foldPercentage = printf("[of %d lines] ", lineCount)
+    endtry
+    endif
+    
+    return prefix . foldPercentage . separator . getline(v:foldstart)
+endfunction
+set foldtext=CustomFold()
+
+
+" Maple folding between #:[--- and #:---]
+autocmd FileType maple setlocal foldmethod=marker
+autocmd FileType maple setlocal foldmarker=:[---,:---]
+autocmd FileType maple setlocal commentstring=#%s
+autocmd FileType maple setlocal foldignore=#
+autocmd FileType maple setlocal nofoldenable
+autocmd FileType maple setlocal foldlevelstart=99
+
+" FORM folding between *--%[ and *--#]
+autocmd FileType form setlocal foldmethod=marker
+autocmd FileType form setlocal foldmarker=--#[,--#]
+autocmd FileType form setlocal commentstring=*%s
+autocmd FileType form setlocal foldignore=*
+autocmd FileType form setlocal nofoldenable
+autocmd FileType form setlocal foldlevelstart=99
+
+"""""""""""""""""""""""""""
+" ALEFix
+"
+"""""""""""""""""""""""""""
 
 " With the ale plugin to highlight  syntax problems
 let g:ale_linters = {
@@ -157,6 +259,10 @@ let g:ale_fixers = {
 \	'sh': ['shfmt'],
 \}
 
+"""""""""""""""""""""""""""
+" Conflict Marker
+"
+"""""""""""""""""""""""""""
 " Vim conflic marker
 let g:conflict_marker_highlight_group = ''
 let g:conflict_marker_begin = '^<<<<<<< .*$'
@@ -188,10 +294,4 @@ endfunction
 
 "inoremap <silent><expr> <TAB>
 "      \ pumvisible() ? "\<C-n>" :  "\<TAB>"
-
-
-
-
-
-
 
