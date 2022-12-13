@@ -3,6 +3,7 @@
   "rust-analyzer.diagnostics.disabled": [
     "inactive-code"
   ],
+  "rust-analyzer.checkOnSave.target": [],
   "explorer.position": "left",
   "explorer.width": 35,
   "explorer.icon.enableNerdfont": true,

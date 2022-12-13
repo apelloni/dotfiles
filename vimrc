@@ -1,5 +1,4 @@
-set number
-
+set number relativenumber
 syntax on
 
 filetype plugin indent on
@@ -92,6 +91,11 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Allow transparency on all themes
 "Plug 'Kjwon15/vim-transparent'
 
+"Fuzzy Finder
+Plug 'junegunn/fzf.vim'
+nnoremap <silent> <C-f> :BLines <CR>
+vnoremap <silent> <C-f> :BLines <CR>
+
 " File Header
 Plug 'alpertuna/vim-header'
 let g:header_auto_add_header = 0
@@ -113,6 +117,7 @@ Plug 'ghifarit53/tokyonight-vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'ackyshake/Spacegray.vim'
 Plug 'arcticicestudio/nord-vim'
+Plug 'phanviet/vim-monokai-pro'
 let g:tokyonight_style = "night" 
 let g:tokyonight_enable_italic = 1
 let g:spacegray_use_italics = 1
