@@ -179,6 +179,9 @@ vnoremap <silent> <C-s> :MultipleCursorsFind <C-R>/<CR>
 """""""""""""""""""""""""""
 " Default leader '\'
 nnoremap <Leader>r :w <CR>:!%:p <CR>
+autocmd FileType maple nnoremap <Leader>r :w <CR>:!maple %:p <CR>
+autocmd FileType form nnoremap <Leader>r :w <CR>:!form %:p <CR>
+autocmd FileType python nnoremap <Leader>r :w <CR>:!python %:p <CR>
 
 """""""""""""""""""""""""""
 " FOLDING
