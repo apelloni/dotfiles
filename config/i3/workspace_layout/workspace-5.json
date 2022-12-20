@@ -1,0 +1,125 @@
+// vim:ts=4:sw=4:et
+{
+    // floating_con with 1 children
+    "border": "normal",
+    "floating": "auto_off",
+    "layout": "splith",
+    "marks": [],
+    "percent": null,
+    "rect": {
+       "height": 755,
+       "width": 847,
+       "x": 1610,
+       "y": 59
+    },
+    "type": "floating_con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 5,
+            "floating": "user_on",
+            "geometry": {
+               "height": 1383,
+               "width": 1132,
+               "x": 0,
+               "y": 0
+            },
+            "marks": [],
+            "name": "Calendar",
+            "percent": 1,
+            "swallows": [
+               {
+                "class": "^gnome\\-calendar$"
+               // "instance": "^gnome\\-calendar$",
+               // "machine": "^qfwfq$",
+               // "title": "^Calendar$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+
+{
+    // floating_con with 1 children
+    "border": "normal",
+    "floating": "auto_off",
+    "layout": "splith",
+    "marks": [],
+    "percent": null,
+    "rect": {
+       "height": 546,
+       "width": 814,
+       "x": 1629,
+       "y": 860
+    },
+    "type": "floating_con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 5,
+            "floating": "user_on",
+            "geometry": {
+               "height": 520,
+               "width": 760,
+               "x": 0,
+               "y": 0
+            },
+            "marks": [],
+            "name": "Weather",
+            "percent": 1,
+            "swallows": [
+               {
+                "class": "^org\\.gnome\\.Weather$"
+               // "instance": "^org\\.gnome\\.Weather$",
+               // "machine": "^qfwfq$",
+               // "title": "^Weather$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+
+{
+    // floating_con with 1 children
+    "border": "normal",
+    "floating": "auto_off",
+    "layout": "splith",
+    "marks": [],
+    "percent": null,
+    "rect": {
+       "height": 1280,
+       "width": 1416,
+       "x": 58,
+       "y": 86
+    },
+    "type": "floating_con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 5,
+            "floating": "user_on",
+            "geometry": {
+               "height": 1270,
+               "width": 1406,
+               "x": 15,
+               "y": 78
+            },
+            "marks": [],
+            "name": "BlueMail",
+            "percent": 1,
+            "swallows": [
+               {
+                "class": "^BlueMail$"
+               // "instance": "^bluemail$",
+               // "machine": "^qfwfq$",
+               // "title": "^BlueMail$",
+               // "window_role": "^browser\\-window$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+

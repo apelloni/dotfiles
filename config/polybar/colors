@@ -1,0 +1,18 @@
+[color]
+background = #660F1215
+foreground = #7fbf7f
+font = #A6BCAA
+white = #FFFFFF
+black = #1A1B26
+red = #cc575d 
+;red = #bd2c40
+orange = #d19a66
+green = #68b382
+
+; Color ramp red to green
+red-to-green-1 = #ff5865
+red-to-green-2 = #ff7a72
+red-to-green-3 = #ffa56a
+red-to-green-4 = #bbdc86
+red-to-green-5 = #60D394
+red-to-green-6 = #68b382
