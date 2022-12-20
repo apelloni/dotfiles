@@ -30,20 +30,20 @@ call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
 
-" improved highlight python syntax 
+" improved highlight python syntax
 Plug 'vim-python/python-syntax'
 let g:python_highlight_all = 1
 
-" File manger 
-" The first time it needs 
+" File manger
+" The first time it needs
 "  :CocInstall coc-explorer
 Plug 'weirongxu/coc-explorer'
 nnoremap <space>e :CocCommand explorer<CR>
 
-" devicons 
+" devicons
 Plug 'ryanoasis/vim-devicons'
 
-" Mathematica syntax 
+" Mathematica syntax
 Plug 'voldikss/vim-mma'
 
 " Reopen from last edited line
@@ -54,7 +54,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'vim-airline/vim-airline'
 let g:airline_powerline_fonts = 1
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme= "deus" 
+let g:airline_theme= "deus"
 " Yank from remote terminal
 " UNCOMMENT THIS PART
 "Plug 'haya14busa/vim-poweryank'
@@ -82,11 +82,11 @@ augroup END
 let g:Illuminate_delay = 1000  "(milliseconds)"
 " Rainbow parenthesis for the win
 Plug 'luochen1990/rainbow'
-let g:rainbow_active = 1 
+let g:rainbow_active = 1
 " ALE for formatting and checking syntax
 Plug 'w0rp/ale'
 "Autocomplete
-"Execute CocInstall coc-rust-analyzer 
+"Execute CocInstall coc-rust-analyzer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Allow transparency on all themes
 "Plug 'Kjwon15/vim-transparent'
@@ -94,7 +94,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Fuzzy Finder
 Plug 'junegunn/fzf.vim'
 nnoremap <silent> <C-f> :BLines <CR>
-vnoremap <silent> <C-f> :BLines <CR>
 
 " File Header
 Plug 'alpertuna/vim-header'
@@ -118,7 +117,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'ackyshake/Spacegray.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'phanviet/vim-monokai-pro'
-let g:tokyonight_style = "night" 
+let g:tokyonight_style = "night"
 let g:tokyonight_enable_italic = 1
 let g:spacegray_use_italics = 1
 let g:PaperColor_Theme_Options = {
@@ -148,7 +147,7 @@ set t_ut= ""
 "colorscheme peachpuff
 "colorscheme nightfly
 colorscheme PaperColor
-"colorscheme OceanicNext 
+"colorscheme OceanicNext
 
 " Set bold line number
 set cursorline
@@ -167,7 +166,7 @@ let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
 
-" Use last searched word to match all the words by 
+" Use last searched word to match all the words by
 " calling Ctrl-s
 " Restricted to selected zone if using VISUAL mode
 nnoremap <silent> <C-s> :MultipleCursorsFind <C-R>/<CR>
@@ -195,7 +194,7 @@ set nofoldenable
 "set foldcolumn=1
 highlight Folded ctermbg=Black ctermfg=White cterm=bold
 highlight Folded   guibg=Gray30  guifg=White   gui=bold
-set fillchars=fold:\ 
+set fillchars=fold:\ "
 
 nnoremap <space><space> za
 
@@ -220,7 +219,7 @@ function! CustomFold()
         let foldPercentage = printf("[of %d lines] ", lineCount)
     endtry
     endif
-    
+
     return prefix . foldPercentage . separator . getline(v:foldstart)
 endfunction
 set foldtext=CustomFold()
@@ -251,8 +250,8 @@ autocmd FileType form setlocal foldlevelstart=99
 let g:ale_linters = {
 \	'python': ['mypy', 'pylint'],
 \	'rust': ['cargo', 'rls',  'analyzer'],
-\	'yaml': ['yamllint'],  
-\	'cpp': ['clang-tidy'], 
+\	'yaml': ['yamllint'],
+\	'cpp': ['clang-tidy'],
 \	'c': ['clang-tidy'],
 \	'sh': ['shellcheck'],
 \}
@@ -287,19 +286,24 @@ highlight ConflictMarkerOurs guibg=#2e5049
 highlight ConflictMarkerTheirs guibg=#344f69
 highlight ConflictMarkerEnd guibg=#2f628e
 
+"""""""""""""""""""""""""""
+" CoC
+"
+"""""""""""""""""""""""""""
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
 function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-"inoremap <silent><expr> <TAB>
-"      \ pumvisible() ? "\<C-n>" :  "\<TAB>"
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB>
+      \ coc#pum#visible() ? coc#pum#prev(1) :
+      \"\<C-h>"
 
