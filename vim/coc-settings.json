@@ -1,5 +1,9 @@
 {
   "suggest.noselect": true,
+  "suggest.floatConfig": {
+    "border": true,
+    "rounded": true
+  },
   "rust-analyzer.diagnostics.disabled": [
     "inactive-code"
   ],
