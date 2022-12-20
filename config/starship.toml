@@ -1,0 +1,193 @@
+format = """
+$os\
+${custom.LD}$status\
+$username$hostname${custom.RD}\
+${custom.SP}\
+${custom.LD}$directory${custom.RD} \
+$git_branch\
+$git_state\
+$git_status\
+$git_metrics\
+$c\
+${custom.FORM}\
+$rust\
+$python\
+$fill\
+$cmd_duration $jobs $time\
+$line_break\
+$character\
+"""
+
+
+palette = 'foo'
+
+[palettes.foo]
+my-bg = '#000000'
+
+
+# Custom Separators 
+# Left Delimiter
+[custom.LD]
+format = '[](my-bg)'
+when = true
+disabled = false
+# Right Delimiter
+[custom.RD]
+format = '[](my-bg)'
+when = true
+disabled = false
+# SeParator
+[custom.SP]
+format = '[](blue)'
+when = true
+disabled = false
+
+
+[hostname]
+ssh_only = false
+style = 'bold dimmed green bg:my-bg'
+format = '[$ssh_symbol$hostname]($style)'
+
+[username]
+style_user = 'white bold bg:my-bg'
+style_root = 'black bold'
+format = '[$user@]($style)'
+disabled = false
+show_always = true
+
+[os]
+format = "[](red)[](green)[](blue)[ $symbol]($style)"
+style = "bold blue"
+disabled = false
+
+[status]
+symbol = ' '
+success_symbol = ''
+style = 'bold red bg:my-bg'
+format = '[$symbol$status]($style)[](my-bg)'
+pipestatus_separator = '[|]($style)'
+pipestatus_segment_format = '[$status]($style)'
+pipestatus_format = '[ ${custom.LD}$pipestatus]($style)[](my-bg)'
+pipestatus = true
+disabled = false
+
+[fill]
+symbol = " "
+
+[directory]
+style = "fg:blue bg:my-bg"
+read_only_style = "fg:red bg:my-bg"
+format = '[$path]($style)[$read_only]($read_only_style)'
+read_only = " "
+truncation_length = 4
+truncation_symbol = '.../'
+fish_style_pwd_dir_length = 0
+truncate_to_repo = false 
+disabled = false
+
+[character]
+success_symbol = '[ ](green)'
+error_symbol = "[ ](red)"
+vicmd_symbol = "[❮](green)"
+
+[git_branch]
+symbol = " "
+format = "[$symbol$branch]($style) "
+style = "purple"
+
+[jobs]
+symbol = ""
+style = "bold red"
+number_threshold = 1
+format = "[$symbol]($style)"
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "cyan"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "bright-black"
+
+[git_metrics]
+disabled = false
+
+[cmd_duration]
+format = "[$duration]($style)"
+style = "yellow"
+
+[memory_usage]
+symbol = " "
+
+[c]
+detect_extensions = ['c','cpp']
+symbol = " "
+
+[rust]
+symbol = " "
+
+[python]
+symbol = " "
+
+[time]
+disabled = false
+style = "bold white"
+format = "[$time]($style)"
+
+[custom.FORM]
+detect_extensions = ['frm']
+symbol = ' '
+command = 'form -v | grep -Eo "v[0-9][^-]*"'
+style = "bold green"
+format = "via [$symbol$output]($style) "
+
+
+[custom.stunnel]
+when = "ps aux | grep stunnel | grep -v grep"
+command = "ps -o etime= -p $(ps aux | grep stunnel | grep -v grep | awk '{print $2}')"
+format = "[TUNNEL OPEN for $output]($style)"
+
+# Nerdfond preset
+[docker_context]
+symbol = " "
+
+[package]
+symbol = " "
+
+[os.symbols]
+Alpine = " "
+Amazon = " "
+Android = " "
+Arch = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "﯑ "
+Gentoo = " "
+HardenedBSD = "ﲊ "
+Illumos = " "
+Linux = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = " "
+openSUSE = " "
+OracleLinux = " "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+Redox = " "
+Solus = "ﴱ "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Windows = " "
