@@ -26,7 +26,7 @@ pop)
 drop)
 	# Select stash or stashes (TAB and SHIFT+TAB) to be dropped
 	GSTASH=$(git stash list | fzf -m --layout=reverse --height=10 | grep -Eo "stash@\{[0-9]+\}" | tac)
-	for STASH in "${GSTASH[@]}"; do
+	for STASH in ${GSTASH[@]}; do
 		git stash drop "$STASH"
 	done
 	;;
