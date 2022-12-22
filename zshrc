@@ -127,7 +127,7 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 
 # directory stack
 setopt AUTO_PUSHD     # pushes the old directory onto the stack
-#setopt PUSHD_MINUS   # exchange the meanings of '+' and '-'
+setopt PUSHD_MINUS    # exchange the meanings of '+' and '-' (reversed)
 zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;5;12'
 
 # offer indexes before parameters in subscripts
