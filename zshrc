@@ -7,9 +7,10 @@ export PATH="$PATH:/home/andrea/.local/bin"
 export PATH="$PATH:/home/andrea/Programs/aeir_v3_0/SecDec-3.0.6"
 
 # run ssh-agent in i3
-if wmctrl -m | grep -q "Name: i3"; then
-    eval $(keychain --eval --agents ssh --quick --quiet)
-fi
+(( $+commands[wmctrl] )) &&
+    if wmctrl -m | grep -q "Name: i3"; then
+        eval $(keychain --eval --agents ssh --quick --quiet)
+    fi
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
