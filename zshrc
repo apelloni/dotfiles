@@ -28,18 +28,6 @@ case $TERM in
 esac
 
 
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git 
-    fzf 
-    zsh-syntax-highlighting 
-    zsh-fzf-history-search
-#    colored-man-pages
-)
-
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
     mkdir $ZSH_CACHE_DIR
@@ -97,23 +85,29 @@ source $ZSH_CUSTOM/plugins/solarized-man/solarized-man.plugin.zsh
 #typeset -g ZSH_FZF_HISTORY_SEARCH_DATES_IN_SEARCH=0
 #typeset -g ZSH_FZF_HISTORY_SEARCH_REMOVE_DUPLICATES=false
 
+# Delete partial words using Ctrl-w
+autoload -Uz select-word-style
+select-word-style bash
+
 # Completion Styles
 
 # Enable autocompletion
 autoload -Uz compinit && compinit
 
 # autocompletion with arrow-key menu
-zstyle ':completion:*' menu select 
+zstyle ':completion:*' menu select
 
 # list of completers to use
 zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
 
 # allow one error for every three characters typed in approximate completer
-#zstyle -e ':completion:*:approximate:*' max-errors \
-#    'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) numeric )'
+zstyle -e ':completion:*:approximate:*' max-errors \
+    'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) numeric )'
 
 # insert all expansions for expand completer
 zstyle ':completion:*:expand:*' tag-order all-expansions
+zstyle ':completion:*:(cd|mv|cp):*' ignore-parents parent pwd
+
 
 # formatting and messages
 zstyle ':completion:*' verbose yes
@@ -137,6 +131,41 @@ zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;
 ## Filename suffixes to ignore during completion (except after rm command)
 #zstyle ':completion:*:*:(^rm):*:*files' ignored-patterns '*?.o' '*?.c~' \
 #    '*?.old' '*?.pro'
+
+################################
+# Shorten path to unique shortest
+################################
+
+
+function spwd {
+  paths=(${(s:/:)PWD})
+
+  cur_path='/'
+  cur_short_path='/'
+  path_length=${#paths}
+  preserve_last=2 # Don't contract the last folders
+  for directory in ${paths[@]}
+  do
+    ((path_length=path_length-1))
+    if [[ ${path_length} -lt ${preserve_last} ]] then
+        cur_dir="${directory}"
+    else
+        cur_dir=''
+        for (( i=0; i<${#directory}; i++ )); do
+          cur_dir+="${directory:$i:1}"
+          matching=("$cur_path"/"$cur_dir"*/)
+          if [[ ${#matching[@]} -eq 1 ]]; then
+            break
+          fi
+        done
+    fi
+    cur_short_path+="$cur_dir/"
+    cur_path+="$directory/"
+  done
+
+  printf %q "${cur_short_path: : -1}"
+  echo
+}
 
 ################################
 # Extra
