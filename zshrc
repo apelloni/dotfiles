@@ -89,6 +89,10 @@ source $ZSH_CUSTOM/plugins/solarized-man/solarized-man.plugin.zsh
 autoload -Uz select-word-style
 select-word-style bash
 
+# Move forward/backward by one word using alt+arrow
+bindkey '${terminfo[kRIT3]}' forward-word
+bindkey '${terminfo[kLFT3]}' backward-word
+
 # Completion Styles
 
 # Enable autocompletion
