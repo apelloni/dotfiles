@@ -90,8 +90,8 @@ autoload -Uz select-word-style
 select-word-style bash
 
 # Move forward/backward by one word using alt+arrow
-bindkey '${terminfo[kRIT3]}' forward-word
-bindkey '${terminfo[kLFT3]}' backward-word
+bindkey "${terminfo[kRIT3]}" forward-word
+bindkey "${terminfo[kLFT3]}" backward-word
 
 # Completion Styles
 
