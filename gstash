@@ -7,31 +7,45 @@ if [[ -z $1 ]]; then
 fi
 
 if [[ $# -gt 1 ]]; then
-	echo "At most one argument (apply|pop|drop|list)."
+	echo "At most one argument (apply|pop|drop|list)"
 	exit 1
 fi
+
+# Get stash list
+stash_list() {
+	# pretty list. An alternative to `git stash list`
+	git log -g refs/stash --color=always --pretty="%C(yellow)%gD %>(14)%Cgreen%cr %C(blue)%gs"
+}
+
+# Filter and select using FZF
+fzf_select() {
+	fzf --layout=reverse --height=10 --ansi
+}
+fzf_multi_select() {
+	fzf -m --layout=reverse --height=10 --ansi
+}
 
 # If there is an agument check it is one of the test case
 case $1 in
 apply)
 	# Select stash to apply
-	GSTASH=$(git stash list | fzf --layout=reverse --height=10 | grep -Eo "stash@\{[0-9]+\}")
+	GSTASH=$(stash_list | fzf_select | grep -Eo "stash@\{[0-9]+\}")
 	git stash apply "$GSTASH"
 	;;
 pop)
 	# Select stash to pop
-	GSTASH=$(git stash list | fzf --layout=reverse --height=10 | grep -Eo "stash@\{[0-9]+\}")
+	GSTASH=$(stash_list | fzf_select | grep -Eo "stash@\{[0-9]+\}")
 	git stash pop "$GSTASH"
 	;;
 drop)
 	# Select stash or stashes (TAB and SHIFT+TAB) to be dropped
-	GSTASH=$(git stash list | fzf -m --layout=reverse --height=10 | grep -Eo "stash@\{[0-9]+\}" | tac)
+	GSTASH=$(stash_list | fzf_multi_select | grep -Eo "stash@\{[0-9]+\}" | tac)
 	for STASH in ${GSTASH[@]}; do
 		git stash drop "$STASH"
 	done
 	;;
 list)
-	GSTASH=$(git stash list | fzf --layout=reverse --height=10 | grep -Eo "stash@\{[0-9]+\}") || exit 0
+	GSTASH=$(stash_list | fzf_select | grep -Eo "stash@\{[0-9]+\}") || exit 0
 	;;
 *) $0 "$1" "No idea" ;;
 esac
