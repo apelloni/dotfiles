@@ -1,0 +1,20 @@
+#compdef gstash
+
+autoload -U regexp-replace
+
+_gstash() {
+local -a opts cmds
+
+cmds=('pop:apply and drop stash using fzf' \
+      'drop:drop one/multiple stash using fzf' \
+      'apply:select and apply stash using fzf' \
+      'list:list all stash' )
+
+opts=('-h:display help' \
+      '--help:display help')
+
+_describe 'command' cmds
+_describe 'option' opts
+}
+
+_gstash "$@"

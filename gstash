@@ -1,54 +1,121 @@
 #!/bin/bash
+# File              : gstash
+# Version           : 1.0
+# Author            : Andrea Pelloni <apelloni>
+# Date              : 18.01.2023
+# Last Modified Date: 18.01.2023
+# Last Modified By  : Andrea Pelloni <apelloni>
 
 # Check if call for stashing
 if [[ -z $1 ]]; then
-	git stash
-	exit $?
-fi
-
-if [[ $# -gt 1 ]]; then
-	echo "At most one argument (apply|pop|drop|list)"
-	exit 1
+    git stash
+    exit $?
 fi
 
 # Get stash list
 stash_list() {
-	# pretty list. An alternative to `git stash list`
-	git log -g refs/stash --color=always --pretty="%C(yellow)%gD %>(14)%Cgreen%cr %C(blue)%gs"
+    # pretty list. An alternative to `git stash list`
+    #git log -g refs/stash --color=always --pretty="%C(yellow)%gD %>(14)%Cgreen%cr %C(blue)%gs"
+    git stash list --color=always --pretty="%C(yellow)%gD %>(14)%Cgreen%cr %C(blue)%gs"
 }
 
 # Filter and select using FZF
 fzf_select() {
-	fzf --layout=reverse --height=10 --ansi
+    fzf --layout=reverse --height=10 --ansi
 }
 fzf_multi_select() {
-	fzf -m --layout=reverse --height=10 --ansi
+    fzf -m --layout=reverse --height=10 --ansi
+}
+
+declare -A gstash_commands
+gstash_commands[apply]="select and apply stash using fzf"
+gstash_commands[drop]="drop one/multiple stash using fzf"
+gstash_commands[pop]="apply and drop stash using fzf"
+gstash_commands[list]="list all stash"
+
+help_msg() {
+    if [ $# -eq 0 ]; then
+        echo -e "\n  Use git stash with FZF"
+
+        echo -e "\nUsage:"
+        echo -e "  gstash ( run git stash )"
+        echo -e "  gstash [command]"
+
+        echo -e "\nAvailable Commands:"
+        for key in "${!gstash_commands[@]}"; do
+            echo -e "  ${key}\t\t${gstash_commands[$key]}"
+        done
+
+        echo -e "\nOptions:"
+        echo -e "  -h, --help\tdisplay help"
+        #for key in "${!gstash_commands[@]}"; do
+        #   echo -e "  -${key:0:1}, --${key}\t${gstash_commands[$key]}"
+        #done
+
+    else
+        if ! [[ -v gstash_commands[$1] ]]; then
+            help_msg
+            exit 1
+        fi
+        echo -e "  $1:\t${gstash_commands[$1]}"
+    fi
 }
 
 # If there is an agument check it is one of the test case
-case $1 in
-apply)
-	# Select stash to apply
-	GSTASH=$(stash_list | fzf_select | grep -Eo "stash@\{[0-9]+\}")
-	git stash apply "$GSTASH"
-	;;
-pop)
-	# Select stash to pop
-	GSTASH=$(stash_list | fzf_select | grep -Eo "stash@\{[0-9]+\}")
-	git stash pop "$GSTASH"
-	;;
-drop)
-	# Select stash or stashes (TAB and SHIFT+TAB) to be dropped
-	GSTASH=$(stash_list | fzf_multi_select | grep -Eo "stash@\{[0-9]+\}" | tac)
-	for STASH in ${GSTASH[@]}; do
-		git stash drop "$STASH"
-	done
-	;;
-list)
-	GSTASH=$(stash_list | fzf_select | grep -Eo "stash@\{[0-9]+\}") || exit 0
-	;;
-*) $0 "$1" "No idea" ;;
-esac
+#cmd_opts_long="help,""$(echo "${!gstash_commands[@]}" | tr ' ' ',')"
+#cmd_opts=":h""$(echo "${!gstash_commands[@]}" | sed -r 's/([a-z])[a-z]+/\1/g' | tr -d ' ')"
+#TMP=$(getopt -a -o "$cmd_opts" --long "$cmd_opts_long" -- "$@")
+TMP=$(getopt -a -o ":h" --long "help" -- "$@")
+eval set -- "$TMP"
 
-#GSTASH=$(git stash list | fzf --layout=reverse --height=10 | grep -Eo "stash@\{[0-9]+\}") && git stash apply $GSTASH
-#GSTASH=$(git stash list | fzf --layout=reverse --height=10 | grep -Eo "stash@\{[0-9]+\}") && git stash apply $GSTASH
+while true; do
+    case $1 in
+    -h | --help)
+        shift 2
+        help_msg "$1"
+        break
+        ;;
+    --)
+        shift
+        ;;
+    apply | drop | pop | list)
+        if [[ $# -gt 1 ]]; then
+            echo "At most one argument [$(echo "${!gstash_commands[@]}" | tr ' ' '|')]"
+
+            exit 1
+        fi
+
+        # git stash
+        case $1 in
+        apply)
+            # Select stash to apply
+            GSTASH=$(stash_list | fzf_select | grep -Eo "stash@\{[0-9]+\}")
+            git stash apply "$GSTASH"
+            ;;
+        pop)
+            # Select stash to pop
+            GSTASH=$(stash_list | fzf_select | grep -Eo "stash@\{[0-9]+\}")
+            git stash pop "$GSTASH"
+            ;;
+        drop)
+            # Select stash or stashes (TAB and SHIFT+TAB) to be dropped
+            GSTASH=($(stash_list | fzf_multi_select | grep -Eo "stash@\{[0-9]+\}" | tac))
+            for STASH in "${GSTASH[@]}"; do
+                git stash drop "$STASH"
+            done
+            ;;
+        list)
+            GSTASH=$(stash_list | fzf_select | grep -Eo "stash@\{[0-9]+\}") || exit 0
+            ;;
+        *) $0 "$1" "No idea" ;;
+        esac
+        break
+        ;;
+    *)
+        echo "Unknown option/command: $1"
+        exit 2
+        ;;
+    esac
+done
+
+exit 0
