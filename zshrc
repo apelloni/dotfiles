@@ -95,6 +95,9 @@ bindkey "${terminfo[kLFT3]}" backward-word
 
 # Completion Styles
 
+# Custom completion for local executable
+fpath=(~/github/dotfiles/zsh/site-functions $fpath)
+
 # Enable autocompletion
 autoload -Uz compinit && compinit
 
