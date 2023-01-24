@@ -3,8 +3,7 @@ local map = vim.api.nvim_set_keymap
 local keymap = vim.keymap.set
 
 -- [[ nvim- tree ]]
-map('n', '<leader>e', [[:NvimTreeToggle<CR>]], {}) -- Toggle
---map('n', '<leader>e', [[:NvimTreeFocus<CR>]], {}) -- Focus
+map('n', 't', [[:NvimTreeFocus<CR>]], {}) -- Focus/Open; to close use `q`
 
 -- [[ FZF ]]
 map('n', '<C-f>', [[:BLines <CR>]],{noremap=true,silent=true})

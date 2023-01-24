@@ -1,7 +1,5 @@
 -- [[ TreeSitter ]]
 
--- Start
-require('nvim-tree').setup {} -- explorer
 
 -- Configurations
 require 'nvim-treesitter.configs'.setup {

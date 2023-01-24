@@ -26,7 +26,7 @@ require('lualine').setup { -- status line
 }
 require('nvim-autopairs').setup {} -- match parentesis
 
--- FORMAT
+-- [[ Format ]]
 local null_ls = require("null-ls")
 
 -- register any number of sources simultaneously
@@ -42,3 +42,52 @@ local sources = {
 }
 
 null_ls.setup({ sources = sources })
+
+
+-- [[ File Explorer ]]
+-- For  help on the commands see
+-- :h nvim-tree-default-mappings or press `g`
+-- EXAMPLES:
+-- `<CR>`   edit                open a file or folder;
+-- `o`
+-- `<C-]>`  cd                  cd in the directory under the cursor
+-- `<C-t>`  tabnew              open the file in a new tab
+-- `<Tab>`  preview             open the file as a preview
+-- `a`      create              add a file; leaving a trailing `/` will add a directory
+-- `.`      run_file_command    enter vim command mode with the file the cursor is on
+-- `<C-k>`  toggle_file_info    toggle a popup with file infos about the file under the cursor
+-- `q`      close               close tree window
+require('nvim-tree').setup {
+      auto_reload_on_write = true,
+      sort_by = "name",
+      view = {
+        centralize_selection = false,
+        cursorline = true,
+        debounce_delay = 15,
+        width = 30,
+        hide_root_folder = false,
+        side = "left",
+        preserve_window_proportions = false,
+        number = false,
+        relativenumber = false,
+        signcolumn = "yes",
+        mappings = {
+          custom_only = false,
+          list = {
+            -- user mappings go here
+          },
+        },
+      },
+      modified = {
+        enable = true,
+        show_on_dirs = true,
+        show_on_open_dirs = true,
+      },
+      tab = {
+        sync = {
+          open = true,
+          close = true,
+          ignore = {},
+        },
+      },
+} -- explorer
