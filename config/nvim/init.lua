@@ -13,6 +13,7 @@ require('keys') -- Keymaps
 require('plug') -- Plugins Import
 require('func') -- functions
 require('lsp') -- lsp options
+require('complete') -- git utilities
 require('git') -- git utilities
 require('tree') -- explorer
 
