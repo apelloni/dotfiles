@@ -9,20 +9,21 @@ return require('packer').startup(function(use)
 
     -- [[ Dev ]]
     use {
-        'nvim-telescope/telescope.nvim',        -- fuzzy finder
-        requires = { {'nvim-lua/plenary.nvim'} }
+        'nvim-telescope/telescope.nvim', -- fuzzy finder
+        requires = { { 'nvim-lua/plenary.nvim' } }
     }
-    use 'majutsushi/tagbar'      -- code structure
-    use 'Yggdroot/indentLine'    -- see indentation
-    use 'tpope/vim-fugitive'     -- git integration
-    use 'junegunn/gv.vim'        -- commit history
-    use 'windwp/nvim-autopairs'  -- auto close brackets, etc.
+    use 'junegunn/fzf.vim' -- fzf for current file
+    use 'majutsushi/tagbar' -- code structure
+    use 'Yggdroot/indentLine' -- see indentation
+    use 'tpope/vim-fugitive' -- git integration
+    use 'junegunn/gv.vim' -- commit history
+    use 'windwp/nvim-autopairs' -- auto close brackets, etc.
 
     -- LSP
     use {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig",
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
     }
     use 'simrat39/rust-tools.nvim' -- rust settings
 
@@ -31,7 +32,7 @@ return require('packer').startup(function(use)
     -- filesystem navigation
     use {
         'kyazdani42/nvim-tree.lua',
-        requires = 'kyazdani42/nvim-web-devicons'  -- filesystem icons
+        requires = 'kyazdani42/nvim-web-devicons' -- filesystem icons
     }
 
     -- Simple plugins can be specified as strings
@@ -44,9 +45,15 @@ return require('packer').startup(function(use)
     use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/nvim-cmp'
 
+    -- git
+    use 'airblade/vim-gitgutter'
+    use 'rhysd/conflict-marker.vim'
 
---   -- Load on an autocommand event
---   use {'andymass/vim-matchup', event = 'VimEnter'}
+    --  multicursor
+    use { 'mg979/vim-visual-multi', branch = 'master' }
+
+    --   -- Load on an autocommand event
+    --   use {'andymass/vim-matchup', event = 'VimEnter'}
 
     -- Post-install/update hook with neovim command
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
@@ -57,13 +64,13 @@ return require('packer').startup(function(use)
         config = function() require('gitsigns').setup() end
     }
 
-      -- [[ Theme ]]
-    use 'mhinz/vim-startify'                        -- start screen
-    use 'DanilaMihailov/beacon.nvim'                -- cursor jump
+    -- [[ Theme ]]
+    use 'mhinz/vim-startify' -- start screen
+    use 'DanilaMihailov/beacon.nvim' -- cursor jump
     use {
-        'nvim-lualine/lualine.nvim',                -- statusline
-        requires = {'kyazdani42/nvim-web-devicons',
-                    opt = true}
+        'nvim-lualine/lualine.nvim', -- statusline
+        requires = { 'kyazdani42/nvim-web-devicons',
+            opt = true }
     }
-    use 'Mofiqul/dracula.nvim'                      -- colorscheme
+    use 'Mofiqul/dracula.nvim' -- colorscheme
 end)

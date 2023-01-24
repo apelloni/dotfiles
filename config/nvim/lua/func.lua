@@ -9,13 +9,13 @@ autocmd({ "BufWritePre" }, {
 })
 
 -- Trim trailing lines
-    autocmd({"BufWritePre"},{
+autocmd({ "BufWritePre" }, {
     pattern = { "*" },
     command = [[silent! %s#\($\n\s*\)\+\%$##]]
 })
 
 -- Remember last position
-autocmd({"BufReadPost"},{
+autocmd({ "BufReadPost" }, {
     desc = 'Open file at the last position it was edited earlier',
     pattern = '*',
     command = 'silent! normal! g`"zv',
