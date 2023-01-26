@@ -3,6 +3,7 @@ local opt = vim.opt
 local cmp = require 'cmp'
 local api = vim.api
 local fn = vim.fn
+local luasnip = require("luasnip")
 
 -- General settings
 opt.completeopt = "menu,menuone,noselect"
@@ -26,8 +27,8 @@ cmp.setup({
     snippet = {
         -- REQUIRED - you must specify a snippet engine
         expand = function(args)
-            fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-            -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+            -- fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+            require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
             -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
             -- fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
         end,
@@ -45,33 +46,33 @@ cmp.setup({
         ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
+                -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+                -- they way you will only jump inside the snippet region
+            elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
             elseif has_words_before() then
                 cmp.complete()
             else
-                -- The fallback function sends a already mapped key.
-                -- In this case, it's probably `<Tab>`.
                 fallback()
             end
         end, { "i", "s" }),
-        ["<S-Tab>"] = cmp.mapping(function()
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
             else
-                feedkey("<C-h>", "")
+                fallback()
             end
-        end, { "i", "s" })
-        ,
+        end, { "i", "s" }),
         ['<Esc>'] = cmp.mapping.abort(),
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
 
     }),
     sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'vsnip' }, -- For vsnip users.
         { name = 'path' },
-        -- { name = 'luasnip' }, -- For luasnip users.
-        -- { name = 'ultisnips' }, -- For ultisnips users.
-        -- { name = 'snippy' }, -- For snippy users.
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
     }, {
         { name = 'buffer' },
     })

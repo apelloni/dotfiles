@@ -51,7 +51,10 @@ local on_attach = function(client, bufnr)
 end
 
 -- [[ Format ]]
+-- format whole document in NORMAL mode
 keymap('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+-- format selected lines in VISUAL mode
+keymap('v', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 
 local lsp_flags = {
     -- This is the default in Nvim 0.7+

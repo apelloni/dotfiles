@@ -10,14 +10,15 @@ return require('packer').startup(function(use)
     -- [[ Dev ]]
     use {
         'nvim-telescope/telescope.nvim', -- fuzzy finder
-        requires = { { 'nvim-lua/plenary.nvim' } }
+        requires = { { 'nvim-lua/plenary.nvim' } },
     }
     use 'junegunn/fzf.vim' -- fzf for current file
     use 'majutsushi/tagbar' -- code structure
     use 'Yggdroot/indentLine' -- see indentation
     use 'tpope/vim-fugitive' -- git integration
     use 'junegunn/gv.vim' -- commit history
-    use 'windwp/nvim-autopairs' -- auto close brackets, etc.
+    use 'RRethy/vim-illuminate' -- Illuminate selected work
+    -- use 'windwp/nvim-autopairs' -- auto close brackets, etc.
 
     -- LSP
     use {
@@ -27,9 +28,10 @@ return require('packer').startup(function(use)
     }
     use 'simrat39/rust-tools.nvim' -- rust settings
 
+    -- Format
     use 'jose-elias-alvarez/null-ls.nvim'
 
-    -- filesystem navigation
+    -- Filesystem navigation
     use {
         'kyazdani42/nvim-tree.lua',
         requires = 'kyazdani42/nvim-web-devicons' -- filesystem icons
@@ -38,12 +40,16 @@ return require('packer').startup(function(use)
     -- Simple plugins can be specified as strings
     use 'rstacruz/vim-closer'
 
-    -- autocomplete
+    -- Autocomplete
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/nvim-cmp'
+    -- For luasnip use
+    use 'L3MON4D3/LuaSnip'
+    use 'saadparwaiz1/cmp_luasnip'
+
 
     -- git
     use 'airblade/vim-gitgutter'
@@ -51,6 +57,12 @@ return require('packer').startup(function(use)
 
     --  multicursor
     use { 'mg979/vim-visual-multi', branch = 'master' }
+
+    -- markdown preview
+    use({
+        "iamcco/markdown-preview.nvim",
+        run = function() vim.fn["mkdp#util#install"]() end,
+    })
 
     --   -- Load on an autocommand event
     --   use {'andymass/vim-matchup', event = 'VimEnter'}
@@ -72,5 +84,22 @@ return require('packer').startup(function(use)
         requires = { 'kyazdani42/nvim-web-devicons',
             opt = true }
     }
-    use 'Mofiqul/dracula.nvim' -- colorscheme
+
+    -- colorscheme
+    use 'Mofiqul/dracula.nvim'
+    use "EdenEast/nightfox.nvim"
+    --   use({ 'projekt0n/github-nvim-theme', tag = 'v0.0.7' })
+
+    use 'Yazeed1s/oh-lucy.nvim'
+    use 'rebelot/kanagawa.nvim'
+    use({
+        'glepnir/zephyr-nvim',
+        requires = { 'nvim-treesitter/nvim-treesitter', opt = true },
+    })
+
+    -- tabline
+    use { 'romgrk/barbar.nvim',
+        requires = 'kyazdani42/nvim-web-devicons'
+    }
+
 end)

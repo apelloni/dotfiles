@@ -5,7 +5,8 @@ require("mason-lspconfig").setup {
         "sumneko_lua",
         "rust_analyzer",
         "clangd",
-        "pyright"
+        "pyright",
+        "texlab"
     }
 }
 
@@ -18,6 +19,8 @@ require 'lspconfig'.pyright.setup { capabilities = capabilities }
 require 'lspconfig'.clangd.setup { capabilities = capabilities }
 require 'lspconfig'.sumneko_lua.setup { capabilities = capabilities }
 require 'lspconfig'.jedi_language_server.setup { capabilities = capabilities }
+require 'lspconfig'.texlab.setup { capabilities = capabilities }
+
 
 require 'lspconfig'.rust_analyzer.setup {
     capabilities = capabilities,

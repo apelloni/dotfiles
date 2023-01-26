@@ -22,7 +22,13 @@ opt.fileencoding = 'utf8'        -- str:  File encoding to use
 -- [[ Theme ]]
 opt.syntax = "ON"                -- str:  Allow syntax highlighting
 opt.termguicolors = true         -- bool: If term supports ui color then enable
+require('nightfox')
 cmd('colorscheme dracula')
+cmd('colorscheme kanagawa')
+cmd('colorscheme nightfox')
+cmd('colorscheme zephyr')
+--require('nightfox')
+-- require('kanagawa')
 
 -- [[ Search ]]
 opt.ignorecase = true            -- bool: Ignore case in search patterns
@@ -42,8 +48,6 @@ opt.splitbelow = true            -- bool: Place new window below the current one
 
 
 -- [[ Folding ]]
-
-
 CustomFold = function()
     -- function! CustomFold()
     local fold_size = v.foldend - v.foldstart + 1
@@ -58,7 +62,6 @@ CustomFold = function()
 end
 
 
-map('n', '<space><space>', 'za', { noremap = true })
 
 
 -- fold options
@@ -73,21 +76,4 @@ highlight(0, "Folded", {
 })
 opt.foldtext = 'v:lua.CustomFold()'
 
-
-local autocmd = vim.api.nvim_create_autocmd
---
--- " Maple folding between #:[--- and #:---]
-autocmd("FileType", { pattern = "maple", command = "setlocal foldmethod=marker" })
-autocmd("FileType", { pattern = "maple", command = "setlocal foldmarker=:[---,:---]" })
-autocmd("FileType", { pattern = "maple", command = "setlocal commentstring=#%s" })
-autocmd("FileType", { pattern = "maple", command = "setlocal foldignore=#" })
-autocmd("FileType", { pattern = "maple", command = "setlocal nofoldenable" })
-autocmd("FileType", { pattern = "maple", command = "setlocal foldlevelstart=99" })
---
--- FORM folding between *--%[ and *--#]
-autocmd("FileType", { pattern = "form", command = "setlocal foldmethod=marker" })
-autocmd("FileType", { pattern = "form", command = "setlocal foldmarker=--#[,--#]" })
-autocmd("FileType", { pattern = "form", command = "setlocal commentstring=*%s" })
-autocmd("FileType", { pattern = "form", command = "setlocal foldignore=*" })
-autocmd("FileType", { pattern = "form", command = "setlocal nofoldenable" })
-autocmd("FileType", { pattern = "form", command = "setlocal foldlevelstart=99" })
+map('n', '<space><space>', 'za', { noremap = true })
