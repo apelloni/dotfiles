@@ -72,6 +72,20 @@ return require('packer').startup(function(use)
     --  multicursor
     use { 'mg979/vim-visual-multi', branch = 'master' }
 
+    -- Dim all but the current paragraph using Limelight
+    use 'junegunn/limelight.vim'
+
+    -- markdown pretty syntax
+    use 'vim-pandoc/vim-pandoc-syntax'
+    use { 'vim-pandoc/vim-pandoc',
+        require = {
+            'vim-pandoc/vim-pandoc-syntax',
+            'plasticboy/vim-markdown',
+        opt=true
+        }
+    }
+    use 'godlygeek/tabular' -- tabular plugin is used to format tables
+
     -- markdown preview
     use({
         "iamcco/markdown-preview.nvim",
