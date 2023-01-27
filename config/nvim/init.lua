@@ -8,9 +8,10 @@ vim.g.localleader = "\\"
 
 -- IMPORTS
 require('vars')     -- Variables
+require('plug')     -- Plugins Import
+
 require('opts')     -- Options
 require('keys')     -- Keymaps
-require('plug')     -- Plugins Import
 require('autocmd')  -- functions
 require('lsp')      -- lsp options
 require('complete') -- git utilities
