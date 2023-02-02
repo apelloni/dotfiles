@@ -14,7 +14,9 @@ export PATH="$PATH:/home/andrea/Programs/aeir_v3_0/SecDec-3.0.6"
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export TERM=xterm-256color
+if ! [[ $HOST == 'qfwfq' ]] ; then
+    export TERM=xterm-256color
+fi
 
 
 # Set prompt
