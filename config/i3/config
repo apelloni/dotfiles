@@ -5,9 +5,12 @@
 # this file and re-run i3-config-wizard(1).
 #
 
+# Keyboard Layout us <-> de toggle
+exec --no-startup-id "setxkbmap -layout 'us,ch(de)'"
+exec --no-startup-id "setxkbmap -option 'grp:alt_shift_toggle'"
+
 set $i3-config-directory ~/.config/i3/
 set $i3-scripts-directory ~/.config/i3/scripts/
-
 
 # Set Background
 exec --no-startup-id $i3-scripts-directory/fehbg
@@ -24,7 +27,7 @@ exec_always --no-startup-id picom --conf ~/.config/picom.conf
 exec --no-startup-id dunst -conf $i3-config-directory/dunstrc1
 # Battery
 exec --no-startup-id $i3-scripts-directory/i3-battery-popup -n -l15 -L20
-# udisk2 manager 
+# udisk2 manager
 exec --no-startup-id udiskie
 
 ###################
@@ -69,9 +72,9 @@ bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set $(($(brightne
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set $(($(brightnessctl get)/2+1))
 
 # Monitors
-# To Check which are the monitor one can use xrandr 
-set $monitor-default eDP-1 
-set $monitor-external HDMI-1 
+# To Check which are the monitor one can use xrandr
+set $monitor-default eDP-1
+set $monitor-external HDMI-1
 bindsym XF86Display exec --no-startup-id sh $i3-scripts-directory/screen-switch.sh $monitor-default $monitor-external
 bindsym $mod+F7 exec --no-startup-id sh $i3-scripts-directory/screen-switch.sh $monitor-default $monitor-external
 
@@ -86,14 +89,14 @@ bindsym $mod+Return exec kitty
 # kill focused window
 bindsym $mod+q kill
 
-# Autotiling 
+# Autotiling
 exec_always --no-startup-id autotiling -w 1 2 3 4 5 6 7 8 9 0
 
 # start rofi (a program launcher)
-#bindsym $mod+d exec --no-startup-id rofi -i -show drun -modi drun -show-icons 
+#bindsym $mod+d exec --no-startup-id rofi -i -show drun -modi drun -show-icons
 bindsym $mod+d exec --no-startup-id ~/.config/rofi/launchers/colorful/launcher.sh
 bindsym $mod+Shift+d exec --no-startup-id ~/.config/rofi/launchers/colorful/windows.sh
-#bindsym $mod+Shift+d exec --no-startup-id rofi -show window 
+#bindsym $mod+Shift+d exec --no-startup-id rofi -show window
 bindsym $mod+n exec --no-startup-id $i3-scripts-directory/wifi-menu
 bindsym $mod+b exec --no-startup-id $i3-scripts-directory/rofi-bluetooth
 # A more modern dmenu replacement is rofi:
@@ -147,8 +150,8 @@ bindsym $mod+c move position center
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+#bindsym $mod+s layout stacking
+#bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -263,18 +266,20 @@ for_window [class="[Zz]oom"] move container to workspace $ws6
 for_window [class="^join\?action=join.*$"] move container to workspace $ws6
 for_window [class="[Zz]ulip"] move container to workspace $ws8
 for_window [class="[Ss]lack"] move container to workspace $ws9
-for_window [class="^[Bb]lue[Mm]ail$"] move container to workspace $ws5 
-for_window [class="^[Bb]etterbird$"] move container to workspace $ws5 
-for_window [class="^[Tt]askade$"] move container to workspace $ws7 
+for_window [class="^[Bb]lue[Mm]ail$"] move container to workspace $ws5
+for_window [class="^[Bb]etterbird$"] move container to workspace $ws5
+for_window [class="^[Tt]askade$"] move container to workspace $ws7
 
-# Define floating windows 
+
+# Define floating windows
 # zoom also for meetings joined via a link
-for_window [class="[Cc]alculator$"] floating enable 
+for_window [class="[Cc]alculator$"] floating enable
+for_window [class="[Ss]hutter$"] floating enable
 for_window [title="^zoom\s?$"] floating enable
 for_window [title="^join\?action=join.*$"] floating enable
-for_window [class="^[Ss]ignal$"] floating enable 
-for_window [class="^[Ee]volution$"] floating enable 
-for_window [class="^[Bb]lue[Mm]ail$"] floating enable 
+for_window [class="^[Ss]ignal$"] floating enable
+for_window [class="^[Ee]volution$"] floating enable
+for_window [class="^[Bb]lue[Mm]ail$"] floating enable
 
 
 ## BORDERS
@@ -289,21 +294,21 @@ client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
 
 client.background       #FFFFFF
 
-# Autostart 
+# Autostart
 #exec --no-startup-id i3-msg "workspace 5; append_layout ~/.config/i3/workspace_layout/workspace-5.json"
 exec --no-startup-id i3-msg "workspace $ws10; exec kitty --session $i3-scripts-directory/kitty.setup"
 exec --no-startup-id i3-msg "workspace $ws2; exec kitty"
 exec --no-startup-id i3-msg "workspace $ws2; exec kitty"
 
-#exec --no-startup-id gnome-calendar 
-#exec --no-startup-id gnome-weather 
-exec --no-startup-id taskade 
+#exec --no-startup-id gnome-calendar
+#exec --no-startup-id gnome-weather
+exec --no-startup-id taskade
 exec --no-startup-id slack
 exec --no-startup-id zulip
-#exec --no-startup-id firefox
-exec --no-startup-id brave
+exec --no-startup-id firefox
+#exec --no-startup-id brave
 exec --no-startup-id dropbox
-exec --no-startup-id betterbird 
+exec --no-startup-id betterbird
 #exec --no-startup-id thunderbird
 
 

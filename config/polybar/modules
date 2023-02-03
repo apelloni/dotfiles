@@ -3,7 +3,7 @@
 [module/temperature]
 type = internal/temperature
 
-format = <ramp> <label> 
+format = <ramp> <label>
 format-background = ${color.black}
 format-padding = 1
 format-foreground = ${color.font}
@@ -96,7 +96,7 @@ poll-interval = 2
 time-format = %H:%M
 
 format-charging = <animation-charging><label-charging>
-format-charging-prefix = 
+format-charging-prefix =
 
 format-discharging = <ramp-capacity><label-discharging>
 
@@ -180,8 +180,8 @@ label-empty-padding = 1
 ; Separator in between workspaces
 label-separator = " "
 label-separator-padding = 0
-label-separator-foreground = ${color.font} 
-label-separator-background = ${color.black} 
+label-separator-foreground = ${color.font}
+label-separator-background = ${color.black}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -250,7 +250,7 @@ interval = 1
 format-margin = 0
 content-font = 1
 content-foreground= ${color.foreground}
-content-background = ${color.black} 
+content-background = ${color.black}
 content-padding = 1
 click-left= ~/.config/rofi/powermenu/powermenu.sh
 
@@ -328,7 +328,7 @@ type=custom/text
 content = "%{T2} %{T-}"
 content-font = 1
 content-foreground= ${color.black}
-content-background = ${color.foreground} 
+content-background = ${color.foreground}
 content-padding = 1
 click-left=j4-dmenu
 
@@ -461,6 +461,53 @@ Ramp-foreground = ${color.foreground}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
+[module/xkeyboard]
+type = internal/xkeyboard
+
+format = <label-layout><label-indicator>
+format-spacing = 0
+
+
+layout-icon-default = "  "
+layout-icon-0 = us;
+layout-icon-1 = ch;
+
+format-prefix = ""
+format-prefix-foreground = ${color.foreground}
+format-prefix-background = ${color.black}
+
+label-layout = %layout%
+label-layout-foreground = ${color.foreground}
+label-layout-background = ${color.black}
+
+label-layout-padding = 0
+label-layout-margin = 0
+
+; Indicator icons name;off icon;on icon
+blacklist-0 = scroll lock
+
+indicator-icon-0 = caps lock;;󰘲
+indicator-icon-1 = scroll lock;;+SL
+indicator-icon-2 = num lock;;󰼏
+
+label-indicator-on = %icon%
+label-indicator-on-background = ${color.black}
+label-indicator-on-foreground = ${color.foreground}
+
+label-indicator-off= %icon%
+label-indicator-off-background = ${color.black}
+label-indicator-off-foreground = ${color.foreground}
+
+label-indicator-font= 6
+label-indicator-on-padding = 1
+label-indicator-on-margin = 0
+
+label-indicator-background = ${color.black}
+label-indicator-foreground = ${color.black}
+
+
+;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
 [module/mpd]
 type = internal/mpd
 label-song-background = ${color.black}
@@ -471,7 +518,7 @@ port = 6601
 ; Default: 1
 interval = 2
 
-format-online = <label-song> 
+format-online = <label-song>
 
 
 icon-prev = 
@@ -510,9 +557,9 @@ reverse-scroll = true
 ; ws-icon-[0-9]+ = <label>;<icon>
 ; NOTE: The <label> needs to match the name of the i3 workspace
 ; Neither <label> nor <icon> can contain a semicolon (;)
-; ❶ ❷ ❸ ❹ ❺ ❻ ❼ ❽ ❾ 
+; ❶ ❷ ❸ ❹ ❺ ❻ ❼ ❽ ❾
 ws-icon-0 = 1;%{T2} %{T-}
-ws-icon-1 = 2;❷ 
+ws-icon-1 = 2;❷
 ws-icon-2 = 3;❸
 ws-icon-3 = 4;❹
 ws-icon-4 = 5;%{T2} %{T-}
