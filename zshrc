@@ -14,9 +14,7 @@ export PATH="$PATH:/home/andrea/Programs/aeir_v3_0/SecDec-3.0.6"
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-if ! [[ $HOST == 'qfwfq' ]] ; then
-    export TERM=xterm-256color
-fi
+export TERM=xterm-256color
 
 
 # Set prompt
@@ -102,6 +100,9 @@ fpath=(~/github/dotfiles/zsh/site-functions $fpath)
 
 # Enable autocompletion
 autoload -Uz compinit && compinit
+
+# Enable autocomplete for custom functions
+compdef _gnu_generic fzf
 
 # autocompletion with arrow-key menu
 zstyle ':completion:*' menu select
