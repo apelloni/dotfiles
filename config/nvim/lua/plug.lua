@@ -65,9 +65,16 @@ return require('packer').startup(function(use)
 
 
     -- git
-    use 'tpope/vim-fugitive'        -- git integration
-    use 'airblade/vim-gitgutter'    -- show changes
-    use 'rhysd/conflict-marker.vim' -- merge conflicts
+    use 'tpope/vim-fugitive'                    -- git integration
+    use 'rhysd/conflict-marker.vim'             -- merge conflicts
+    use {                                       -- show changes
+        'lewis6991/gitsigns.nvim',
+        requires = { 'nvim-lua/plenary.nvim' },
+    --    config = function()
+    --        require('gitsigns').setup()
+    --    end
+    }
+    -- use 'airblade/vim-gitgutter'    -- show changes
 
     --  multicursor
     use { 'mg979/vim-visual-multi', branch = 'master' }
@@ -98,11 +105,6 @@ return require('packer').startup(function(use)
     -- Post-install/update hook with neovim command
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
-    -- Use dependency and run lua function after load
-    use {
-        'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' },
-        config = function() require('gitsigns').setup() end
-    }
 
     -- [[ Theme ]]
     use 'mhinz/vim-startify' -- start screen
