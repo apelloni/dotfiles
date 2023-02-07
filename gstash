@@ -99,7 +99,7 @@ while true; do
             ;;
         drop)
             # Select stash or stashes (TAB and SHIFT+TAB) to be dropped
-            GSTASH=($(stash_list | fzf_multi_select | grep -Eo "stash@\{[0-9]+\}" | tac))
+            GSTASH=($(stash_list | fzf_multi_select | grep -Eo "stash@\{[0-9]+\}" | sort | tac))
             for STASH in "${GSTASH[@]}"; do
                 git stash drop "$STASH"
             done
