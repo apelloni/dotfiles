@@ -11,6 +11,12 @@ map('n', '[h', [[<Plug>(GitGutterPrevHunk)]], { noremap = true })
 map('n', '<Leader>hp', [[<Plug>(GitGutterPreviewHunk)]], { noremap = true })
 map('n', '<Leader>hu', [[<Plug>(GitGutterUndoHunk)]], { noremap = true })
 
+g.gitgutter_sign_added                   = '▋'--'┃'  -- default: '+'
+g.gitgutter_sign_modified                = '▋'--'┃'  -- default: '~'
+g.gitgutter_sign_removed                 = '_'
+g.gitgutter_sign_removed_first_line      = '‾'
+g.gitgutter_sign_removed_above_and_below = '_¯'
+g.gitgutter_sign_modified_removed        = '~_'
 
 -- [[ Conflict Marker ]]
 

@@ -26,11 +26,10 @@ return require('packer').startup(function(use)
         'nvim-telescope/telescope.nvim', -- fuzzy finder
         requires = { { 'nvim-lua/plenary.nvim' } },
     }
-    use 'junegunn/fzf.vim' -- fzf for current file
-    use 'majutsushi/tagbar' -- code structure
-    use 'Yggdroot/indentLine' -- see indentation
-    use 'tpope/vim-fugitive' -- git integration
-    use 'junegunn/gv.vim' -- commit history
+    use 'junegunn/fzf.vim'      -- fzf for current file
+    use 'majutsushi/tagbar'     -- code structure
+    use 'Yggdroot/indentLine'   -- see indentation
+    use 'junegunn/gv.vim'       -- commit history
     use 'RRethy/vim-illuminate' -- Illuminate selected work
     -- use 'windwp/nvim-autopairs' -- auto close brackets, etc.
 
@@ -66,8 +65,9 @@ return require('packer').startup(function(use)
 
 
     -- git
-    use 'airblade/vim-gitgutter'
-    use 'rhysd/conflict-marker.vim'
+    use 'tpope/vim-fugitive'        -- git integration
+    use 'airblade/vim-gitgutter'    -- show changes
+    use 'rhysd/conflict-marker.vim' -- merge conflicts
 
     --  multicursor
     use { 'mg979/vim-visual-multi', branch = 'master' }
