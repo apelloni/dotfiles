@@ -6,6 +6,7 @@ require("mason-lspconfig").setup {
         "rust_analyzer",
         "clangd",
         "pyright",
+        "jedi_language_server",
         "texlab"
     }
 }
