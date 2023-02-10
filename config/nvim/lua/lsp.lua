@@ -18,11 +18,18 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 require 'lspconfig'.pyright.setup { capabilities = capabilities }
 require 'lspconfig'.clangd.setup { capabilities = capabilities }
-require 'lspconfig'.sumneko_lua.setup { capabilities = capabilities }
 require 'lspconfig'.jedi_language_server.setup { capabilities = capabilities }
 require 'lspconfig'.texlab.setup { capabilities = capabilities }
-
-
+require 'lspconfig'.sumneko_lua.setup {
+    settings = {
+        Lua = {
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { 'vim' },
+            },
+        },
+    },
+}
 require 'lspconfig'.rust_analyzer.setup {
     capabilities = capabilities,
     --    settings = {
