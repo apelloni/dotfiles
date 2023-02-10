@@ -80,7 +80,7 @@ require("lazy").setup({
     -- markdown pretty syntax
     'vim-pandoc/vim-pandoc-syntax',
     { 'vim-pandoc/vim-pandoc',
-        require = {
+        dependencies= {
             'vim-pandoc/vim-pandoc-syntax',
             'plasticboy/vim-markdown',
             lazy = true
