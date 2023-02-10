@@ -1,135 +1,131 @@
 -- [[ Plugins ]]
 
--- Autoinstall Packer the first time that is run
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
+-- Autoinstall lazy the first time that is run
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
 
--- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
-
-return require('packer').startup(function(use)
-    -- Packer can manage itself
-    use 'wbthomason/packer.nvim'
-
+-- Import Plugins
+require("lazy").setup({
     -- [[ Dev ]]
-    use {
+    {
         'nvim-telescope/telescope.nvim', -- fuzzy finder
-        requires = { { 'nvim-lua/plenary.nvim' } },
-    }
-    use 'junegunn/fzf.vim'      -- fzf for current file
-    use 'majutsushi/tagbar'     -- code structure
-    use 'Yggdroot/indentLine'   -- see indentation
-    use 'junegunn/gv.vim'       -- commit history
-    use 'RRethy/vim-illuminate' -- Illuminate selected work
+        dependencies = { { 'nvim-lua/plenary.nvim' } },
+    },
+    'junegunn/fzf.vim',                -- fzf for current file
+    'majutsushi/tagbar',               -- code structure
+    'Yggdroot/indentLine',             -- see indentation
+    'junegunn/gv.vim',                 -- commit history
+    'RRethy/vim-illuminate',           -- Illuminate selected work
+    'jose-elias-alvarez/null-ls.nvim', -- Format
+    'rstacruz/vim-closer',             -- match brackets on Enter
+    'godlygeek/tabular',               -- tabularize
     -- use 'windwp/nvim-autopairs' -- auto close brackets, etc.
 
+    -- multicursor
+    { 'mg979/vim-visual-multi', branch = 'master' },
+
     -- LSP
-    use {
+    {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "neovim/nvim-lspconfig",
-    }
-    use 'simrat39/rust-tools.nvim' -- rust settings
+    },
+    'simrat39/rust-tools.nvim', -- rust settings
 
-    -- Format
-    use 'jose-elias-alvarez/null-ls.nvim'
 
     -- Filesystem navigation
-    use {
+    {
         'kyazdani42/nvim-tree.lua',
-        requires = 'kyazdani42/nvim-web-devicons' -- filesystem icons
-    }
-
-    -- Simple plugins can be specified as strings
-    use 'rstacruz/vim-closer'
+        dependencies = 'kyazdani42/nvim-web-devicons' -- filesystem icons
+    },
 
     -- Autocomplete
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-cmdline'
-    use 'hrsh7th/nvim-cmp'
-    -- For luasnip use
-    use 'L3MON4D3/LuaSnip'
-    use 'saadparwaiz1/cmp_luasnip'
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-cmdline',
+    'hrsh7th/nvim-cmp',
 
+    -- For luasnip use
+    'L3MON4D3/LuaSnip',
+    'saadparwaiz1/cmp_luasnip',
 
     -- git
-    use 'tpope/vim-fugitive'                    -- git integration
-    use 'rhysd/conflict-marker.vim'             -- merge conflicts
-    use {                                       -- show changes
+    'tpope/vim-fugitive',        -- git integration
+    'rhysd/conflict-marker.vim', -- merge conflicts
+    {                            -- show changes
         'lewis6991/gitsigns.nvim',
-        requires = { 'nvim-lua/plenary.nvim' },
-    --    config = function()
-    --        require('gitsigns').setup()
-    --    end
-    }
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        --    config = function()
+        --        require('gitsigns').setup()
+        --    end
+    },
     -- use 'airblade/vim-gitgutter'    -- show changes
 
-    --  multicursor
-    use { 'mg979/vim-visual-multi', branch = 'master' }
 
     -- Dim all but the current paragraph using Limelight
-    use 'junegunn/limelight.vim'
+    'junegunn/limelight.vim',
 
     -- markdown pretty syntax
-    use 'vim-pandoc/vim-pandoc-syntax'
-    use { 'vim-pandoc/vim-pandoc',
+    'vim-pandoc/vim-pandoc-syntax',
+    { 'vim-pandoc/vim-pandoc',
         require = {
             'vim-pandoc/vim-pandoc-syntax',
             'plasticboy/vim-markdown',
-        opt=true
+            lazy = true
         }
-    }
-    use 'godlygeek/tabular' -- tabular plugin is used to format tables
+    },
 
     -- markdown preview
-    use({
+    {
         "iamcco/markdown-preview.nvim",
-        run = function() vim.fn["mkdp#util#install"]() end,
-    })
+        build = function() vim.fn["mkdp#util#install"]() end,
+    },
+
+    -- Show Pictures
+    { 'edluffy/hologram.nvim' },
 
     --   -- Load on an autocommand event
     --   use {'andymass/vim-matchup', event = 'VimEnter'}
 
     -- Post-install/update hook with neovim command
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
 
 
     -- [[ Theme ]]
-    use 'mhinz/vim-startify' -- start screen
-    use 'DanilaMihailov/beacon.nvim' -- cursor jump
-    use {
+    'mhinz/vim-startify', -- start screen
+    'DanilaMihailov/beacon.nvim', -- cursor jump
+    {
         'nvim-lualine/lualine.nvim', -- statusline
-        requires = { 'kyazdani42/nvim-web-devicons',
-            opt = true }
-    }
+        dependencies = { 'kyazdani42/nvim-web-devicons',
+            lazy = true }
+    },
 
     -- colorscheme
-    use 'Mofiqul/dracula.nvim'
-    use "EdenEast/nightfox.nvim"
+    'Mofiqul/dracula.nvim',
+    "EdenEast/nightfox.nvim",
     --   use({ 'projekt0n/github-nvim-theme', tag = 'v0.0.7' })
 
-    use 'Yazeed1s/oh-lucy.nvim'
-    use 'rebelot/kanagawa.nvim'
-    use({
+    'Yazeed1s/oh-lucy.nvim',
+    'rebelot/kanagawa.nvim',
+    {
         'glepnir/zephyr-nvim',
-        requires = { 'nvim-treesitter/nvim-treesitter', opt = true },
-    })
+        dependencies = { 'nvim-treesitter/nvim-treesitter', lazy = true },
+    },
 
     -- tabline
-    use { 'romgrk/barbar.nvim',
-        requires = 'kyazdani42/nvim-web-devicons'
-    }
-
-end)
+    { 'romgrk/barbar.nvim',
+        dependencies = 'kyazdani42/nvim-web-devicons'
+    },
+})
