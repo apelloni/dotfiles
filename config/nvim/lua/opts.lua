@@ -30,6 +30,7 @@ cmd('colorscheme nightfox')
 cmd('colorscheme zephyr')
 --require('nightfox')
 -- require('kanagawa')
+highlight(0, "Beacon", {bg = "white"})
 
 -- [[ Search ]]
 opt.ignorecase = true            -- bool: Ignore case in search patterns

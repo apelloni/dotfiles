@@ -2,6 +2,8 @@
 
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
+local g = vim.g
+
 -- [[ Formatting ]]
 --
 -- Trim trailing white spaces
@@ -54,6 +56,23 @@ autocmd("FileType", {
 
 })
 
+-- [[ FileType]]
+local wolfram_syntax = augroup("wolfram_syntax", { clear = true })
+autocmd({ "BufNewFile", "BufFilePre", "BufRead" },
+    {
+        pattern = "*.wl",
+        command = "setlocal filetype=mma",
+        group = wolfram_syntax,
+    }
+)
+
+-- [[ Beacon ]]
+-- disable beacon when using diff -d
+g.beacon_enable = 0
+autocmd("VimEnter", {
+    pattern = "*",
+    command = [[if !&diff | let g:beacon_enable = 1 | endif]]
+})
 
 -- [[ Folding ]]
 --
