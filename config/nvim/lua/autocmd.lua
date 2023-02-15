@@ -55,12 +55,16 @@ autocmd("FileType", {
     command = "nnoremap <Leader>rp :MarkdownPreview<CR>"
 
 })
+autocmd("FileType", {
+    pattern = "tex",
+    command = "nnoremap <Leader>r :w <CR>:!pdflatex %:p <CR>"
+})
 
 -- [[ FileType]]
 local wolfram_syntax = augroup("wolfram_syntax", { clear = true })
 autocmd({ "BufNewFile", "BufFilePre", "BufRead" },
     {
-        pattern = "*.wl",
+        pattern = {"*.wl","*.m"},
         command = "setlocal filetype=mma",
         group = wolfram_syntax,
     }
