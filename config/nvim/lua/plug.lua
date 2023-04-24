@@ -18,11 +18,18 @@ vim.opt.rtp:prepend(lazypath)
 -- Import Plugins
 require("lazy").setup({
     -- [[ Dev ]]
-    {
-        'nvim-telescope/telescope.nvim', -- fuzzy finder
-        dependencies = { { 'nvim-lua/plenary.nvim' } },
+    {'nvim-telescope/telescope.nvim', -- fuzzy finder
+        dependencies = { 'nvim-lua/plenary.nvim' },
     },
-    'junegunn/fzf.vim',                -- fzf for current file
+
+    -- fzf for current file
+    { 'ibhagwan/fzf-lua',
+        dependencies = { 'kyazdani42/nvim-web-devicons' }
+    },
+    { 'junegunn/fzf.vim',
+        build = './install --bin'
+    },
+
     'majutsushi/tagbar',               -- code structure
     'Yggdroot/indentLine',             -- see indentation
     'junegunn/gv.vim',                 -- commit history
@@ -31,6 +38,7 @@ require("lazy").setup({
     'rstacruz/vim-closer',             -- match brackets on Enter
     'godlygeek/tabular',               -- tabularize
     -- use 'windwp/nvim-autopairs' -- auto close brackets, etc.
+
 
     -- multicursor
     { 'mg979/vim-visual-multi', branch = 'master' },
