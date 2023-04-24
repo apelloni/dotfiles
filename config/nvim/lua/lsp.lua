@@ -2,7 +2,7 @@
 require("mason").setup {}
 require("mason-lspconfig").setup {
     ensure_installed = {
-        "sumneko_lua",
+        "lua_ls",
         "rust_analyzer",
         "clangd",
         "pyright",
@@ -20,7 +20,7 @@ require 'lspconfig'.pyright.setup { capabilities = capabilities }
 require 'lspconfig'.clangd.setup { capabilities = capabilities }
 require 'lspconfig'.jedi_language_server.setup { capabilities = capabilities }
 require 'lspconfig'.texlab.setup { capabilities = capabilities }
-require 'lspconfig'.sumneko_lua.setup {
+require 'lspconfig'.lua_ls.setup {
     settings = {
         Lua = {
             diagnostics = {
