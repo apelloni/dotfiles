@@ -74,7 +74,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set $(($(bright
 # Monitors
 # To Check which are the monitor one can use xrandr
 set $monitor-default eDP-1
-set $monitor-external HDMI-1
+set $monitor-external "(HDMI-1|DP-[1-2])"
 bindsym XF86Display exec --no-startup-id sh $i3-scripts-directory/screen-switch.sh $monitor-default $monitor-external
 bindsym $mod+F7 exec --no-startup-id sh $i3-scripts-directory/screen-switch.sh $monitor-default $monitor-external
 
@@ -314,7 +314,7 @@ exec --no-startup-id i3-msg "workspace $ws2; exec kitty"
 
 #exec --no-startup-id gnome-calendar
 #exec --no-startup-id gnome-weather
-exec --no-startup-id taskade
+#exec --no-startup-id taskade
 exec --no-startup-id slack
 exec --no-startup-id zulip
 exec --no-startup-id firefox
