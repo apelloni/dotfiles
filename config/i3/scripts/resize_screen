@@ -2,10 +2,10 @@
 
 SCALE=$1
 
-SCREEN=($(xrandr --listactivemonitors | egrep "[0-9]+:" | awk '{print $4}'))
+SCREEN=($(xrandr --listactivemonitors | grep -E "[0-9]+:" | awk '{print $4}'))
 
 #ORIGINAL SIZE
-SIZE=($(xrandr | grep \* | egrep -o "[0-9]+x[0-9]+" | sed 's/x/ /g'))
+SIZE=($(xrandr | grep \* | grep -Eo "[0-9]+x[0-9]+" | sed 's/x/ /g'))
 if [[ ${#SCREEN[@]} > 1 ]]; then
     echo "Only one screen must be active"
     exit 0
@@ -31,5 +31,3 @@ xrandr --output $SCREEN --mode $MODE --scale ${SCALE}x${SCALE} --panning $PANNIN
 #esac
 
 ~/.config/i3/scripts/fehbg
-
-
