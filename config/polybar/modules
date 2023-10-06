@@ -638,6 +638,16 @@ label-separator-background = ${color.black}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
+[module/email]
+type = custom/script
+format-background = ${color.black}
+format-foreground = ${color.foreground}
+exec = echo "%{T2}󰇮%{T-}$(~/.config/polybar/mail.sh)  "
+exec-if = [ $(~/.config/polybar/mail.sh) -ne "0" ]
+interval = 60
+
+;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
 [module/arch-update]
 type = custom/script
 format-background = ${color.black}
