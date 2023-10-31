@@ -68,8 +68,8 @@ bindsym XF86AudioMute exec --no-startup-id $i3-scripts-directory/volume-control.
 bindsym XF86AudioMicMute exec --no-startup-id $i3-scripts-directory/volume-control.sh mute-input
 
 # Use brightnessctl to adjust brightness
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set $(($(brightnessctl get)*2))
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set $(($(brightnessctl get)/2+1))
+bindsym XF86MonBrightnessUp exec --no-startup-id $i3-scripts-directory/brightness-control.sh up
+bindsym XF86MonBrightnessDown exec --no-startup-id $i3-scripts-directory/brightness-control.sh down
 
 # Monitors
 # To Check which are the monitor one can use xrandr
