@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-alias emacs='emacs -nw' 
+alias emacs='emacs -nw'
 alias svim='sudo vim'
 
 #enable color support of ls and also add handy aliases
@@ -12,10 +12,10 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # some more ls aliases
-if (( $+commands[exa] )) then
-    alias ll='exa -alFh'
-    alias la='exa -a'
-    alias l='exa -F'
+if (( $+commands[eza] )) then
+    alias ll='eza -alFh'
+    alias la='eza -a'
+    alias l='eza -F'
 else
     alias ll='ls -alFh'
     alias la='ls -A'
