@@ -73,23 +73,19 @@ null_ls.setup({ sources = sources })
 require('nvim-tree').setup {
     auto_reload_on_write = true,
     sort_by = "name",
+    renderer = {
+        root_folder_label = false,
+    },
     view = {
         centralize_selection = false,
         cursorline = true,
         debounce_delay = 15,
         width = 30,
-        hide_root_folder = false,
         side = "left",
         preserve_window_proportions = false,
         number = false,
         relativenumber = false,
         signcolumn = "yes",
-        mappings = {
-            custom_only = false,
-            list = {
-                -- user mappings go here
-            },
-        },
     },
     modified = {
         enable = true,
