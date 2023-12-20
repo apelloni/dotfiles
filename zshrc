@@ -136,6 +136,10 @@ setopt PUSHD_IGNORE_DUPS # Remove duplicate entries
 setopt PUSHD_MINUS       # exchange the meanings of '+' and '-' (reversed)
 zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;5;12'
 
+# colors
+eval "$(dircolors)"
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
 # offer indexes before parameters in subscripts
 #zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 
