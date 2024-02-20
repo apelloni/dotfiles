@@ -5,13 +5,12 @@ content-background = ${color.background}
 
 [module/sep]
 type = custom/text
-content = 
-;content = " "
+content = " "
 
-content-font = 3
+content-font = 4 ; use font-4
 content-background = ${color.background}
 content-foreground = ${color.foreground}
-content-padding = 1
+content-padding = 0
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -187,4 +186,3 @@ content-font = 3
 content-background = ${color.magenta}
 content-foreground = ${color.green}
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-

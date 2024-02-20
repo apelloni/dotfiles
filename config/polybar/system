@@ -7,5 +7,5 @@
 adapter = AC
 battery = BAT0
 graphics_card = amdgpu_bl0
-network_interface_wireless = wlp4s0
-network_interface_wired = enp0s31f6 
+network_interface_wireless = wlp0s20f3
+network_interface_wired = enp0s31f6
