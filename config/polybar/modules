@@ -100,7 +100,7 @@ ramp-volume-foreground = ${color.foreground}
 ramp-volume-background = ${color.black}
 
 ; Right and Middle click
-click-right = pavucontrol
+click-right = pavucontrol -t 5
 ; click-middle =
 
 ramp-headphones-0 = 
