@@ -282,6 +282,13 @@ for_window [class="^[Bb]lue[Mm]ail$"] move container to workspace $ws5
 for_window [class="^[Bb]etterbird$"] move container to workspace $ws5
 for_window [class="^[Tt]askade$"] move container to workspace $ws7
 
+# Pulseaudio Pavucontrol window
+for_window [class="[Pp]avucontrol"] floating enable
+for_window [class="[Pp]avucontrol"] resize set width 50 ppt
+for_window [class="[Pp]avucontrol"] resize set width 50 ppt
+for_window [class="[Pp]avucontrol"] move position center
+
+
 
 # Define floating windows
 # zoom also for meetings joined via a link
