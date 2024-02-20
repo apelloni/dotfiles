@@ -10,22 +10,39 @@ format-foreground = ${color.font}
 
 label = %temperature-c%
 
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-3 = 
-ramp-4 = 
-ramp-5 = 
-ramp-6 = 
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-5 = 
+ramp-6 = 
+ramp-7 = 
+ramp-8 = 
+ramp-9 = "󰈸 "
 ramp-0-foreground = ${color.red-to-green-5}
 ramp-1-foreground = ${color.red-to-green-5}
-ramp-2-foreground = ${color.red-to-green-4}
+ramp-2-foreground = ${color.red-to-green-5}
 ramp-3-foreground = ${color.red-to-green-4}
-ramp-4-foreground = ${color.red-to-green-3}
-ramp-5-foreground = ${color.red-to-green-2}
-ramp-6-foreground = ${color.red-to-green-1}
+ramp-4-foreground = ${color.red-to-green-4}
+ramp-5-foreground = ${color.red-to-green-3}
+ramp-6-foreground = ${color.red-to-green-3}
+ramp-7-foreground = ${color.red-to-green-2}
+ramp-8-foreground = ${color.red-to-green-2}
+ramp-9-foreground = ${color.red-to-green-1}
 ramp-font = 3
 ramp-foreground = ${color.red}
+;ramp-background = ${color.black}
+
+warn-temperature = 80
+
+format-warn = <ramp><label-warn>
+label-warn = %temperature-c%
+label-warn-foreground = ${color.red}
+format-warn-foreground = ${color.red}
+format-warn-background = ${color.black}
+format-warn-padding = 1
+format-warn-underline = ${color.red}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -102,12 +119,12 @@ adapter = ${system.adapter}
 poll-interval = 2
 time-format = %H:%M
 
-format-charging = <animation-charging><label-charging>
+format-charging = %{A1:~/.config/polybar/battery/battery.sh:}<animation-charging><label-charging>%{A}
 format-charging-prefix =
 
-format-discharging = <ramp-capacity><label-discharging>
+format-discharging = %{A1:~/.config/polybar/battery/battery.sh:}<ramp-capacity><label-discharging>%{A}
 
-format-full = <label-full>
+format-full = %{A1:~/.config/polybar/battery/battery.sh:}<label-full>%{A}
 format-full-prefix = "  "
 format-full-prefix-font = 3
 format-full-prefix-foreground = ${color.font}
@@ -141,11 +158,11 @@ ramp-capacity-font = 3
 ramp-capacity-foreground = ${color.red}
 ramp-capacity-background = ${color.black}
 
-animation-charging-0 = "   "
-animation-charging-1 = "   "
-animation-charging-2 = "   "
-animation-charging-3 = "   "
-animation-charging-4 = "   "
+animation-charging-0 = "󰢜 "
+animation-charging-1 = "󰂇 "
+animation-charging-2 = "󰢝 "
+animation-charging-3 = "󰂊 "
+animation-charging-4 = "󰂅 "
 animation-charging-font = 3
 animation-charging-foreground = ${color.foreground}
 animation-charging-background = ${color.black}
@@ -228,12 +245,12 @@ interval = 1
 format = <ramp-load><label>
 format-background = ${color.font}
 
-ramp-load-0= "  "
-ramp-load-1= "  "
-ramp-load-2= "  "
-ramp-load-3= "  "
-ramp-load-4= "  "
-ramp-load-5= "  "
+ramp-load-0= " 󰍛 "
+ramp-load-1= " 󰍛 "
+ramp-load-2= " 󰍛 "
+ramp-load-3= " 󰍛 "
+ramp-load-4= " 󰍛 "
+ramp-load-5= " 󰍛 "
 ramp-load-font = 3
 ramp-load-0-foreground = ${color.red-to-green-6}
 ramp-load-1-foreground = ${color.red-to-green-5}
@@ -332,12 +349,12 @@ label-unmounted-background = ${color.foreground}
 
 [module/launcher]
 type=custom/text
-content = "%{T2} %{T-}"
-content-font = 1
+content = " "
+content-font = 2
 content-foreground= ${color.black}
 content-background = ${color.foreground}
-content-padding = 1
-click-left=j4-dmenu
+content-padding = 0
+click-left=~/.config/rofi/launchers/colorful/launcher.sh
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -377,7 +394,7 @@ unknown-as-up = true
 format-connected = <ramp-signal><label-connected>
 
 format-disconnected = <label-disconnected>
-format-disconnected-prefix = "睊 "
+format-disconnected-prefix = "󰖪 "
 format-disconnected-prefix-font = 3
 format-disconnected-foreground = ${color.black}
 format-disconnected-background = ${color.foreground}
@@ -415,10 +432,10 @@ interval = 1.0
 format-connected = <ramp-signal>
 format-disconnected = <label-disconnected>
 
-format-disconnected-prefix-font = 3
+label-disconnected = ""
 format-disconnected-foreground = ${color.foreground}
 format-disconnected-background = ${color.background}
-label-disconnected = ""
+format-disconnected-font = 3
 
 ramp-signal-0 = ""
 ramp-signal-1 = ""
@@ -448,22 +465,33 @@ card = intel_backlight
 
 use-actual-brightness = true
 
-enable-scroll = true
+enable-scroll = false
 reverse-scroll = true
 
-format = <ramp> <label>
+;format = <ramp> <label>
+format = <ramp>
 format-background = ${color.black}
 format-padding = 0
 
 label =%percentage%%
 label-foreground = ${color.font}
 
-ramp-0 = %{T2} %{T-}
-ramp-1 = %{T2} %{T-}
-ramp-2 = %{T2} %{T-}
-ramp-3 = %{T2} %{T-}
-ramp-4 = %{T2} %{T-}
-ramp-font = 30
+ramp-0 = "󰛩 "
+ramp-1 = "󱩎 "
+ramp-2 = "󱩏 "
+ramp-3 = "󱩐 "
+ramp-4 = "󱩒 "
+ramp-5 = "󱩓 "
+ramp-6 = "󱩓 "
+ramp-7 = "󱩔 "
+ramp-8 = "󱩕 "
+ramp-9 = "󱩖 "
+ramp-10 = "󰛨 "
+;ramp-1 = %{}󰃟 %{}
+;ramp-2 = %{}󰃟 %{}
+;ramp-3 = %{}󰃝 %{}
+;ramp-4 = %{}󰃠 %{}
+ramp-font = 3
 Ramp-foreground = ${color.foreground}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -505,7 +533,7 @@ label-indicator-off= %icon%
 label-indicator-off-background = ${color.black}
 label-indicator-off-foreground = ${color.foreground}
 
-label-indicator-font= 6
+label-indicator-on-font= 6
 label-indicator-on-padding = 1
 label-indicator-on-margin = 0
 
@@ -565,16 +593,16 @@ reverse-scroll = true
 ; NOTE: The <label> needs to match the name of the i3 workspace
 ; Neither <label> nor <icon> can contain a semicolon (;)
 ; ❶ ❷ ❸ ❹ ❺ ❻ ❼ ❽ ❾
-ws-icon-0 = 1;%{T2} %{T-}
+ws-icon-0 = 1;%{T2}󰇧 %{T-}
 ws-icon-1 = 2;❷
 ws-icon-2 = 3;❸
 ws-icon-3 = 4;❹
-ws-icon-4 = 5;%{T2} %{T-}
+ws-icon-4 = 5;%{T2}󰇮 %{T-}
 ws-icon-5 = 6;❻
 ws-icon-6 = 7;❼
 ws-icon-7 = 8;%{T2} %{T-}
 ws-icon-8 = 9;%{T2} %{T-}
-ws-icon-9 = 10;%{T2} %{T-}
+ws-icon-9 = 10;%{T2}󰄧 %{T-}
 ws-icon-default = %{T2} %{T-}
 
 ; NOTE: You cannot skip icons, e.g. to get a ws-icon-6
@@ -649,9 +677,9 @@ label-separator-background = ${color.black}
 type = custom/script
 format-background = ${color.black}
 format-foreground = ${color.foreground}
-exec = echo "%{T2}󰇮%{T-}$(~/.config/polybar/mail.sh)  "
+exec = echo "%{T2}󰇮 %{T-}$(~/.config/polybar/mail.sh)  "
 exec-if = [ $(~/.config/polybar/mail.sh) -ne "0" ]
-interval = 60
+interval = 10
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -660,4 +688,4 @@ type = custom/script
 format-background = ${color.black}
 format-foreground = ${color.foreground}
 exec = echo "%{T2} %{T-}$(checkupdates 2>/dev/null | wc -l | awk '{print $1}')"
-interval = 10
+interval = 3600
