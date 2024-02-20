@@ -37,27 +37,30 @@ exec = ~/.config/i3/scripts/rofi-bluetooth --status
 interval = 1
 click-left = ~/.config/i3/scripts/rofi-bluetooth &
 
+
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 [module/volume]
 type = internal/pulseaudio
 
-sink = alsa_output.pci-0000_12_00.3.analog-stereo
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
+sink = alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__Headphones__sink
 
 use-ui-max = false
-
+reverse-scroll = true
 interval = 5
 
 format-volume = <ramp-volume><label-volume>
 
 format-muted = <label-muted>
-format-muted-prefix = " "
-format-muted-prefix-font = 2
-format-muted-prefix-foreground = ${color.font}
+format-muted-prefix = " 󰝟 "
+format-muted-prefix-font = 3
+format-muted-prefix-foreground = ${color.foreground}
 format-muted-prefix-background = ${color.black}
 
 label-volume = "%percentage%% "
-label-muted = "Mute"
+label-muted = " "
 
 label-volume-background = ${color.black}
 label-muted-background = ${color.black}
@@ -66,18 +69,22 @@ label-volume-foreground = ${color.font}
 label-muted-foreground = ${color.font}
 
 ramp-volume-0 = "  "
-ramp-volume-1 = "  "
-ramp-volume-2 = "  "
+ramp-volume-1 = "  "
+ramp-volume-2 = "  "
 ramp-volume-3 = "  "
-ramp-volume-4 = "  "
-ramp-volume-5 = "  "
-ramp-volume-6 = "  "
+ramp-volume-4 = " )"
+ramp-volume-5 = " )"
+ramp-volume-6 = " )"
 ramp-volume-7 = "  "
 ramp-volume-8 = "  "
 ramp-volume-9 = "  "
 ramp-volume-font = 3
 ramp-volume-foreground = ${color.foreground}
 ramp-volume-background = ${color.black}
+
+; Right and Middle click
+click-right = pavucontrol
+; click-middle =
 
 ramp-headphones-0 = 
 ramp-headphones-1 = 
