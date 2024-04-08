@@ -1,0 +1,36 @@
+# Set the window layout for the current tab
+layout tall
+enabled_layouts tall:bias=60;full_size=1;mirrored=false
+
+# Set the working directory for windows in the current tab
+cd ~
+# Create a window and run gtop 
+# launch gtop
+#launch btm -t 60000 -r 500
+launch btm -t 60000 -r 2000
+# Create a window and read from neofetch
+launch /home/andrea/startup/neofetch.shot
+
+# Set the title for the next window
+title Chat with x
+launch peaclock
+
+# Create a new tab (the part after new_tab is the optional tab
+# name which will be displayed in the tab bar, if omitted, the
+# title of the active window will be used instead)
+#new_tab my tab
+#cd ~/somewhere
+# Set the layouts allowed in this tab
+#enabled_layouts tall, stack
+# Set the current layout
+#layout stack
+#launch zsh
+
+# # Create a new OS window
+# new_os_window
+# # set new window size to 80x25 cells
+# os_window_size 80c 25c
+# launch sh
+# # Make the current window the active (focused) window
+# focus
+# launch emacs

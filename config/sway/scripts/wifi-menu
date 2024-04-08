@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Available Styles
+# >> Created and tested on : rofi 1.6.0-1
+# style_1     style_2     style_3     style_4     style_5     style_6
+# style_7     style_8     style_9     style_10    style_11    style_12
+theme="style_3"
+dir="$HOME/.config/rofi/launchers/colorful"
+
+# accent colors
+COLORS=('#EC7875' '#61C766' '#FDD835' '#42A5F5' '#BA68C8' '#4DD0E1' '#00B19F'
+    '#FBC02D' '#E57C46' '#AC8476' '#6D8895' '#EC407A' '#B9C244' '#6C77BB')
+ACCENT="${COLORS[6]}"
+
+# dark
+ALPHA="#00000000"
+BG="#000000ff"
+FG="#FFFFFFff"
+#SELECT="#101010ff"
+SELECT="${COLORS[13]}"
+
+
+# overwrite colors file
+cat >$dir/colors.rasi <<-EOF
+	/* colors */
+
+	* {
+	  al:  $ALPHA;
+	  bg:  $BG;
+	  se:  $SELECT;
+	  fg:  $FG;
+	  ac:  $ACCENT;
+	}
+EOF
+
+##############################
+# wifi-menu
+notify-send -i /usr/share/icons/zafiro-icon-theme/apps/scalable/network-manager.svg  -t 1000 "Getting WiFi networks..."
+chosen_network=$(
+    nmcli -g BARS,SSID device wifi |
+        sed -r -e 's/(▂▄▆█):/0 \1\t/g' -e 's/(▂▄▆_):/1 \1\t/g' -e 's/(▂▄__):/2 \1\t/g' -e 's/(▂___):/3 \1\t/g' -e 's/(____):/4 \1\t/g' |
+        sort -k3 | uniq | sort -k1 | sed 's/^[0-4] //g' |
+        rofi -dmenu -i -p "Wifi network" -no-custom -theme $dir/$theme |
+        sed 's/^[^\t]*\t//g'
+)
+if [[ -z $chosen_network ]]; then
+    # If we have not chosen a network, the previous command will return an empty string
+    # and we can exit right away
+    exit 1
+fi
+
+if [[ -n $(nmcli -g NAME connection | grep "^$chosen_network$") ]]; then
+    nmcli --ask connection up id "$chosen_network"
+else
+    nmcli --ask device wifi connect "$chosen_network"
+fi
