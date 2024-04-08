@@ -1,0 +1,243 @@
+// -*- mode: json -*-
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    //"height": 45, // Waybar height
+
+    // Choose the order of the modules
+	"modules-left": [
+		"sway/workspaces",
+        "sway/mode",
+		"hyprland/workspaces#2",
+        "custom/blank", "custom/blank",
+        "custom/updates",
+	],
+	"modules-center": [
+        "network",
+		"clock#time",
+		"clock#date",
+		"hyprland/language",
+	],
+	"modules-right": [
+		"pulseaudio",
+        "backlight",
+        "custom/blank", "custom/blank",
+        "temperature",
+        "custom/blank", "custom/blank",
+		"cpu",
+		"memory",
+		"disk",
+        "custom/blank", "custom/blank",
+		"battery",
+        "custom/blank",
+		"tray",
+        "custom/power",
+	],
+
+    "custom/blank": {
+        "format": " ",
+        "tooltip": false,
+    },
+
+    "hyprland/workspaces#2": {
+        "disable-scroll": true,
+        "disable-markup" : false,
+        "active-only": false,
+        "format": "<span font-size='14pt'>{icon}</span>",
+        "format-icons": {
+            "1": "󰲠","2": "󰲢", "3": "󰲤", "4": "󰲦", "5": "󰲨",
+            "6": "󰲪", "7": "󰲬", "8": "󰲮", "9": "󰲰", "10": "󰿬",
+            "active": "",
+            "default": ""
+         },
+        "persistent-workspaces": {
+            // Always show a workspace with name '1', on all outputs if it does not exists
+            "1": [], "2": [], "3": [], "4": [], "5": [],
+            "6": [], "7": [], "8": [], "9": [], "10": [],
+            //["eDP-1"], // Always show a workspace on output 'eDP-1' if it does not exists
+            //["eDP-1", "DP-2"], // Always show a workspace on outputs 'eDP-1' and 'DP-2' if it does not exists
+        },
+    },
+
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "disable-markup" : false,
+        "active-only": false,
+        "all-outputs": true,
+        "format": "{icon}",
+        // ❶ ❷ ❸ ❹ ❺ ❻ ❼ ❽
+        "format-icons": {
+            "1": "<span font_family='Material Icons' font-size='10pt' rise='7pt'>󰈹</span>",
+            "2": "<span font-size='10pt' rise='7pt'></span>",
+            "3": " 3",
+            "4": " 4",
+            "5": "<span font-size='10pt' rise='7pt'></span>",
+            "6": " 6",
+            "7": " 7",
+            "8": "<span font-size='10pt' rise='7pt'></span>",
+            "9": " 9",
+            "10": "<span font-size='10pt' rise='7pt'></span>",
+            //"focused": "",
+            "default": ""
+         },
+        "persistent-workspaces": {
+            "1": [], "2": [], "3": [], "4": [], "5": [],
+            "6": [], "7": [], "8": [], "9": [], "10": [],
+        },
+    },
+
+    "hyprland/language": {
+        "format": "{short} {variant}",
+    },
+
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "disable-markup" : false,
+        "all-outputs": true,
+        "format": "{icon}",
+        // ❶ ❷ ❸ ❹ ❺ ❻ ❼ ❽
+        "format-icons": {
+            "1": "<span font_family='Material Icons' font-size='10pt' rise='7pt'>󰈹</span>",
+            "2": "<span font-size='10pt' rise='7pt'></span>",
+            "3": " 3",
+            "4": " 4",
+            "5": "<span font-size='10pt' rise='7pt'></span>",
+            "6": " 6",
+            "7": " 7",
+            "8": "<span font-size='10pt' rise='7pt'></span>",
+            "9": " 9",
+            "10": "<span font-size='10pt' rise='7pt'></span>",
+            //"focused": "",
+            "default": ""
+         }
+     },
+
+    "sway/mode": {
+        "format": "<span style='italic'>{}</span>"
+    },
+
+	"clock#date": {
+		"format": "<span style=\"italic\">{:%a %d-%m-%Y}</span>",
+		//"tooltip": false
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        //"format-alt": "{:%Y-%m-%d}",
+		//"on-click": "gnome-calendar"
+	},
+	"clock#time": {
+		"format": " 󱑂    {:%H:%M}  ",
+		"tooltip": false
+	},
+
+	"pulseaudio": {
+		"format": "{icon} {volume:2}%",
+		"format-bluetooth": "{icon}  {volume}%",
+		"format-muted": "<span font-size='15pt'> 󰝟 </span>",
+		"format-icons": {
+			"headphones": " ",
+			"default": ["  "," "," "]
+		},
+		"scroll-step": 5,
+		"reverse-scrolling": true,
+		"on-click": "pamixer -t",
+		"on-click-right": "pavucontrol"
+	},
+
+    "temperature": {
+        "interval": 1,
+        "critical-threshold": 80,
+        "format": "{temperatureC}°C ",
+    },
+
+	"memory": {
+		"interval": 5,
+		//"format": " {}%"
+	    "format-critical":  "<span color='#c20821'><b> {:2}%</b></span>",
+        "format-high":      "<span color='#e03c52'> {:2}%</span>",
+        "format-medium":    "<span color='#85c600'> {:2}%</span>",
+        "format-low":       "<span color='grey'> {:2}%</span>",
+        "states": {
+            "critical": 90,
+            "high": 70,
+            "medium": 5,
+            "low": 0,
+        },
+    },
+	"cpu": {
+		"interval": 5,
+		//"format": "󰍛  {usage:2}%",
+        "format-critical":  "<span color='#c20821'><b>󰍛 {usage:2}%</b></span>",
+        "format-high":      "<span color='#e03c52'>󰍛 {usage:2}%</span>",
+        "format-medium":    "<span color='#85c600'>󰍛 {usage:2}%</span>",
+        "format-low":       "<span color='grey'>󰍛 {usage:2}%</span>",
+        "states": {
+            "critical": 90,
+            "high": 70,
+            "medium": 5,
+            "low": 0,
+        },
+	},
+
+	"battery": {
+		"states": {
+			"good": 95,
+			"warning": 30,
+			"critical": 15
+		},
+		"format": "{icon}  {capacity}%",
+		"format-charging": "{icon}  {capacity}%",
+		"format-icons": {
+            "discharging": [" "," "," "," "," "],
+            "charging": ["󰢜 ","󰂇 ","󰢝 ","󰂊 ","󰂅 "],
+            "full": [" "],
+        },
+	},
+
+    "backlight": {
+        "device": "intel_backlight",
+        "reverse-scrolling": true,
+        "format": "{icon} {percent}%",
+        "format-icons": ["󰛩 ","󱩏 ","󱩐 ","󱩒 ","󱩒 ","󱩓 ","󱩓 ","󱩔 ","󱩕 ","󱩖 ","󰛨 "],
+    },
+
+	"disk": {
+		"interval": 5,
+		"format": "  {percentage_used:2}%",
+		"path": "/"
+	},
+
+    "network": {
+        "format": "{ifname}",
+        //"format-wifi": "{essid} ({signalStrength}%)  ",
+        "format-wifi": "{essid}  ",
+        "format-ethernet": "{ipaddr}/{cidr} 󰊗 ",
+        //"format-disconnected": "", //An empty format will hide the module.
+        "format-disconnected": "󰌙 ",
+        "tooltip-format": "{ifname} via {gwaddr} 󰊗 ",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)  ",
+        "tooltip-format-ethernet": "{ifname}  ",
+        "tooltip-format-disconnected": "󰌙 ",
+        "max-length": 50
+    },
+
+	"tray": {
+		"icon-size": 17,
+        "spacing": 5
+	},
+
+    "custom/power":  {
+        "format": "<span font-size='12pt' rise='0pt'></span>",
+		"on-click":  "~/.config/rofi/powermenu/powermenu.sh"
+	},
+
+   // cargo install waybar-module-pacman-updates
+   "custom/updates": {
+       "format": "{} {icon}",
+       "return-type": "json",
+       "format-icons": {
+           "has-updates": "", //󱍷",
+           "updated": "󰂪"
+       },
+       "exec-if": "which waybar-module-pacman-updates",
+       "exec": "waybar-module-pacman-updates  --interval-seconds 5 --network-interval-seconds 300"
+   }
+}

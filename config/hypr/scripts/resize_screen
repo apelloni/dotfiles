@@ -1,0 +1,33 @@
+#!/bin/bash
+
+SCALE=$1
+
+SCREEN=($(xrandr --listactivemonitors | grep -E "[0-9]+:" | awk '{print $4}'))
+
+#ORIGINAL SIZE
+SIZE=($(xrandr | grep \* | grep -Eo "[0-9]+x[0-9]+" | sed 's/x/ /g'))
+if [[ ${#SCREEN[@]} > 1 ]]; then
+    echo "Only one screen must be active"
+    exit 0
+fi
+MODE=$(echo -n "${SIZE[0]}x${SIZE[1]}")
+
+#PANNING
+SIZE=(
+    $(echo "scale=1;${SIZE[0]}*$SCALE" | bc | sed 's/\..*$//g')
+    $(echo "scale=1;${SIZE[1]}*$SCALE" | bc | sed 's/\..*$//g')
+     )
+PANNING=$(echo -n "${SIZE[0]}x${SIZE[1]}")
+
+
+echo "xrandr --output $SCREEN --mode $MODE --scale ${SCALE}x${SCALE} --panning $PANNING"
+xrandr --output $SCREEN --mode $MODE --scale ${SCALE}x${SCALE} --panning $PANNING 2>&1
+#xrandr --output eDP-1 --off --output HDMI-1 --mode 1920x1200 --scale 1.5x1.5 --panning 2880x1800;;
+#	reset)
+#		xrandr --fb 3840x2160 --output eDP-1 --mode 2560x1440 --scale 1;;
+#	*)
+#		echo 'Unknown option. Try [right, left, ext]';;
+#
+#esac
+
+~/.config/i3/scripts/fehbg

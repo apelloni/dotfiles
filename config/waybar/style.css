@@ -1,0 +1,326 @@
+/* =============================================================================
+ *
+ * Waybar configuration
+ *
+ * Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
+ *
+ * =========================================================================== */
+
+/* -----------------------------------------------------------------------------
+ * Colors
+ * -------------------------------------------------------------------------- */
+
+@define-color background rgba(0, 0, 0, 0.5);
+@define-color navy-blue rgba(0,119,179,0.6);
+@define-color green #68b382;
+@define-color green2 #7fbf7f;
+@define-color red #eb4d4b;
+@define-color purple #b48ead;
+@define-color off-white #d8dee9;
+@define-color gray-blue #64727d;
+@define-color soft-green #a3be8c;
+@define-color soft-yellow #ebcb8b;
+@define-color soft-blue #81a1c1;
+@define-color soft-red #cc575d;
+@define-color soft-purple #bf616a;
+
+@define-color power-button @navy-blue;
+@define-color font-color #A6BCAA;
+
+/* -----------------------------------------------------------------------------
+ * Base styles
+ * -------------------------------------------------------------------------- */
+
+
+
+/* [color]
+    --background: #660F1215;
+    --foreground : #;
+    --font : ;
+    --white : #FFFFFF;
+    --black : #1A1B26;
+
+    --red-to-green-1 : #ff5866;
+    --red-to-green-2 : #ff7a73;
+    --red-to-green-3 : #ffa56a;
+    --red-to-green-4 : #bbdc87;
+    --red-to-green-5 : #60D395;
+    --red-to-green-6 : #68b383;
+}
+*/
+    /*Color ramp red to green*/
+
+/* Reset all styles */
+
+* {
+    color: @font-color;
+    border: 0;
+    border-radius: 20px;
+    padding: 0 0;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight:bold;
+    font-size: 12px;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    padding-bottom:0px;
+   }
+
+window#waybar {
+    background: @background;
+}
+
+#mode {
+    color: @soft-yellow;
+}
+
+#clock, #battery, #cpu, #memory,#idle_inhibitor, #temperature,
+#custom-keyboard-layout, #backlight, #network, #pulseaudio, #disk,
+#mode, #tray, #window, #custom-launcher, #custom-power, #custom-pacman, #language {
+    padding: 0 3px;
+    border: 2px solid;
+    border-bottom: 2px;
+    border-style: solid;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces button {
+    padding: 0 2px;
+    padding-right: 7px;
+    background: transparent;
+    color: #ffffff;
+    border: 3px solid rgba(250,250,250,0.75);
+    margin-top:0px;
+    margin-bottom:0px;
+}
+
+#workspaces.2 {
+    background: @background;
+    padding: 0 5px;
+}
+
+#workspaces.2 button {
+    padding: 0;
+    margin: 0px;
+    padding-left: 0px;
+    padding-right: 4px;
+    border-radius: 50px;
+    border: 0;
+    background: @orange;
+}
+
+
+/* sway */
+#workspaces button.focused {
+    border-color: @soft-blue;
+    background: @gray-blue;
+    border-bottom: 3px solid #ffffff;
+}
+#workspaces.2 button.focused {
+    border-bottom: 0px;
+}
+
+/* hyprland*/
+#workspaces button.active {
+    border-color: #81a1c1;
+    background: @gray-blue;
+    border-bottom: 3px solid #ffffff;
+}
+#workspaces.2 button.active {
+    border-bottom: 0px;
+    background: @gray-blue;
+    background: radial-gradient(rgba(250,250,250,0.75),transparent 90%);
+}
+
+#workspaces button.urgent {
+    background-color: @soft-red;
+}
+
+/* -----------------------------------------------------------------------------
+ * Module styles
+ * -------------------------------------------------------------------------- */
+
+
+/*-----module groups----*/
+.modules-right {
+    background: @background;
+    margin: 0px 0px 0 0;
+}
+.modules-center {
+    background: @background;
+    margin: 0px 0 0 0;
+}
+.modules-left {
+    background: transparent;
+    margin: 0px 0 0 0px;
+}
+
+#language{
+    color: @background;
+    background: rgba(256,256,256,0.5);
+    margin: 5px 5px;
+    padding: 5px 5px 3px 5px;
+}
+
+#network{
+    font-size: 10px;
+    color: @soft-green;
+    padding-left:10px;
+    border-radius: 100px 0px 0px 100px;
+    border-right:0px;
+}
+
+#network.disabled {
+    color:#bf616a;
+}
+
+#network.disconnected {
+    color: #bf616a;
+}
+
+#clock {
+    color: @soft-green;
+}
+#clock.time {
+    font-size: 14px;
+    color: @soft-green;
+    margin-left:4px;
+    margin-right:4px;
+    border-radius: 5px;
+}
+#clock.date {
+    font-size: 10px;
+    color: @soft-green;
+    padding-right:10px;
+    border-radius: 0px 100px 100px 0px;
+    border-left:0px;
+}
+
+#backlight {
+    color: @soft-yellow;
+    border-radius: 0px 100px 100px 0px;
+    border-left:0px;
+}
+
+#battery {
+    color: @off-white;
+    border: 0px;
+}
+
+#battery.charging {
+    color: @soft-blue;
+}
+
+@keyframes blink {
+    to {
+        color: #4c566a;
+        background-color: #eceff4;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background: @soft-red;
+    color: @off-white;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#cpu {
+    /*color: #d3869b;*/
+    color: @soft-green ;
+    border-radius: 100px 0px 0px 100px;
+    border-right: 0px;
+    padding-left: 5px;
+}
+
+#memory {
+    color: @soft-green;
+    border-radius: 0px;
+    border-right: 0px;
+    border-left: 0px;
+}
+
+#disk {
+    /*color: #d3869b;*/
+    color: @soft-green;
+    border-radius: 0px 100px 100px 0px;
+    border-left: 0px;
+}
+
+#pulseaudio {
+    border: 2px solid;
+    color: @purple;
+    border-radius: 100px 0px 0px 100px;
+    border-right: 0px;
+    padding-left: 5px;
+    margin-right: 0px;
+}
+
+#pulseaudio.muted {
+    /*color: #3b4252;*/
+    color: #999999;
+}
+
+#temperature {
+    color: #8fbcbb;
+    padding: 2px 5px 0px 5px;
+}
+
+#temperature.critical {
+    color: #bf616a;
+}
+
+#idle_inhibitor {
+   color: #ebcb8b;
+}
+
+#tray {
+    border: 4px solid;
+    border-top: 0px;
+    border-bottom: 0px;
+    border-radius:0px;
+    padding: 0px 5px 0px 5px;
+    color: rgba(256,256,256,0.1);
+}
+
+#custom-launcher,#custom-power{
+    border-style: hidden;
+    margin-top:2px;
+}
+
+#window{
+    border-style: hidden;
+    margin-top:1px;
+}
+#mode{
+    margin-bottom:3px;
+}
+
+#custom-keyboard-layout{
+   color:#d08770;
+}
+
+#custom-power {
+    background-color: @navy-blue;
+    border-radius: 100px;
+    margin: 5px 5px;
+    padding: 1px 10px 1px 7px;
+}
+
+#custom-updates{
+    background-color: @navy-blue;
+    border-radius: 100px;
+    margin: 5px 5px;
+    padding: 1px 10px 0px 5px;
+
+}
+
+#custom-updates.updated{
+    background: transparent;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+}
