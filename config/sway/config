@@ -88,6 +88,12 @@ bindsym XF86AudioMicMute exec $sway-scripts-directory/volume-control.sh mute-inp
 bindsym XF86MonBrightnessUp exec $sway-scripts-directory/brightness-control.sh up
 bindsym XF86MonBrightnessDown exec $sway-scripts-directory/brightness-control.sh down
 
+# warm/cold brightness
+exec wl-gammarelay
+bindsym $mod+Ctrl+1 exec busctl --user -- set-property rs.wl-gammarelay / rs.wl.gammarelay Temperature q 6500
+bindsym $mod+Ctrl+2 exec busctl --user -- set-property rs.wl-gammarelay / rs.wl.gammarelay Temperature q 4500
+bindsym $mod+Ctrl+3 exec busctl --user -- set-property rs.wl-gammarelay / rs.wl.gammarelay Temperature q 2500
+
 # Capture print of screen
 #bindsym Print exec XDG_CURRENT_DESKTOP=sway flameshot
 bindsym Print exec grim -g "`slurp`" - | wl-copy --type image/png \
