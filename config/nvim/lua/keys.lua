@@ -6,7 +6,7 @@ local keymap = vim.keymap.set
 map('n', 't', [[:NvimTreeFocus<CR>]], {}) -- Focus/Open; to close use `q`
 
 -- [[ FZF ]]
-map('n', '<C-f>', [[:BLines <CR>]],{noremap=true,silent=true})
+map('n', '<C-f>', [[:FzfLua blines <CR>]],{noremap=true,silent=true})
 
 
 -- [[ Telescope ]]
@@ -21,6 +21,7 @@ keymap('n', '<leader>fh', builtin.help_tags, {})
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap = true, silent = true }
 keymap('n', '<space>e', vim.diagnostic.open_float, opts)
+keymap('n', '<space>d', vim.lsp.buf.definition, opts)
 keymap('n', '[d', vim.diagnostic.goto_prev, opts)
 keymap('n', ']d', vim.diagnostic.goto_next, opts)
 keymap('n', '<space>q', vim.diagnostic.setloclist, opts)
