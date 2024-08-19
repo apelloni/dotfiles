@@ -88,6 +88,14 @@ autocmd("FileType", { pattern = "maple", command = "setlocal foldignore=#" })
 autocmd("FileType", { pattern = "maple", command = "setlocal nofoldenable" })
 autocmd("FileType", { pattern = "maple", command = "setlocal foldlevelstart=99" })
 --
+-- " Latex folding between #:[--- and #:---]
+autocmd("FileType", { pattern = "tex", command = "setlocal foldmethod=marker" })
+autocmd("FileType", { pattern = "tex", command = "setlocal foldmarker=:[---,:---]" })
+autocmd("FileType", { pattern = "tex", command = "setlocal commentstring=%%s" })
+autocmd("FileType", { pattern = "tex", command = "setlocal foldignore=%" })
+autocmd("FileType", { pattern = "tex", command = "setlocal nofoldenable" })
+autocmd("FileType", { pattern = "tex", command = "setlocal foldlevelstart=99" })
+--
 -- FORM folding between *--%[ and *--#]
 autocmd("FileType", { pattern = "form", command = "setlocal foldmethod=marker" })
 autocmd("FileType", { pattern = "form", command = "setlocal foldmarker=--#[,--#]" })
