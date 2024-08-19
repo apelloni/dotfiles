@@ -21,6 +21,8 @@ require("lazy").setup({
     {'nvim-telescope/telescope.nvim', -- fuzzy finder
         dependencies = { 'nvim-lua/plenary.nvim' },
     },
+    -- enable sudo with SudaWrite
+    'lambdalisue/vim-suda',
 
     -- fzf for current file
     { 'ibhagwan/fzf-lua',
@@ -79,19 +81,71 @@ require("lazy").setup({
         --        require('gitsigns').setup()
         --    end
     },
+    "f-person/git-blame.nvim",
     -- use 'airblade/vim-gitgutter'    -- show changes
 
+    -- show sign in folds
+    {
+        'lewis6991/foldsigns.nvim',
+        config = function()
+            require('foldsigns').setup()
+        end
+    },
 
     -- Dim all but the current paragraph using Limelight
     'junegunn/limelight.vim',
 
+    -- Zen Mode
+    {
+        "folke/zen-mode.nvim",
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        }
+    },
+
+    -- highlight TODO, WARN ...
+    {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        }
+    },
+
+    -- quarto
+    {
+        'quarto-dev/quarto-nvim',
+        'jmbuhr/otter.nvim',
+        'benlubas/molten-nvim', -- jupyther support
+    },
+
+    -- Addistional syntaxes
+    {'hura/vim-asymptote'},
+
     -- markdown pretty syntax
-    'vim-pandoc/vim-pandoc-syntax',
-    { 'vim-pandoc/vim-pandoc',
-        dependencies= {
-            'vim-pandoc/vim-pandoc-syntax',
-            'plasticboy/vim-markdown',
-            lazy = true
+    -- 'vim-pandoc/vim-pandoc-syntax',
+    -- { 'vim-pandoc/vim-pandoc',
+    --     dependencies= {
+    --         'vim-pandoc/vim-pandoc-syntax',
+    --         'plasticboy/vim-markdown',
+    --         lazy = true
+    --     }
+    -- },
+    {
+        "OXY2DEV/markview.nvim",
+        lazy = false, -- Recommended
+        -- ft = "markdown" -- If you decide to lazy-load anyway
+
+        dependencies = {
+            -- You will not need this if you installed the
+            -- parsers manually
+            -- Or if the parsers are in your $RUNTIMEPATH
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons"
         }
     },
 
@@ -123,6 +177,26 @@ require("lazy").setup({
     -- colorscheme
     'Mofiqul/dracula.nvim',
     "EdenEast/nightfox.nvim",
+    "olimorris/onedarkpro.nvim",
+    "diegoulloao/neofusion.nvim",
+    "fynnfluegge/monet.nvim",
+    {"navarasu/onedark.nvim",
+        config = function()
+            require('onedark').setup({
+                style = "deep",
+            })
+        end
+    },
+    {
+        "neanias/everforest-nvim",
+        config = function()
+            require('everforest').setup({
+                background = "hard",
+                transparent_background_level = 0,
+            })
+        end
+    },
+
     --   use({ 'projekt0n/github-nvim-theme', tag = 'v0.0.7' })
 
     'Yazeed1s/oh-lucy.nvim',

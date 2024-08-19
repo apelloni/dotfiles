@@ -16,9 +16,15 @@ opt.scrolloff = 4                -- int:  Min num lines of context
 opt.signcolumn = "yes"           -- str:  Show the sign column
 opt.cursorline = true            -- bool: Highlight current line
 
+-- [[ signs ]]
+opt.signcolumn = 'auto:5'        -- str:  auto:[0-9] to disply multiple signs
+
 -- [[ Filetypes ]]
 opt.encoding = 'utf8'            -- str:  String encoding to use
 opt.fileencoding = 'utf8'        -- str:  File encoding to use
+
+-- [[ Clipboard ]]
+-- opt.clipboard = 'unnamedplus'
 
 -- [[ Theme ]]
 opt.syntax = "ON"                -- str:  Allow syntax highlighting
@@ -30,7 +36,8 @@ cmd('colorscheme nightfox')
 cmd('colorscheme zephyr')
 --require('nightfox')
 -- require('kanagawa')
-highlight(0, "Beacon", {bg = "white"})
+highlight(0, "Beacon", { bg = "white" })
+
 
 -- [[ Search ]]
 opt.ignorecase = true            -- bool: Ignore case in search patterns
