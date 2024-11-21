@@ -8,17 +8,21 @@
 
 # Get input devices with swaymsg -t get_input
 set $TOUCHPAD "1267:12792:ELAN067B:00_04F3:31F8_Touchpad"
-set $MOUSE "1133:45082:MX_Anywhere_2S_Mouse"
 input $TOUCHPAD {
     natural_scroll enable
     middle_emulation true # kills middle button on trackpad
 }
-input $MOUSE {
+# mouse settings ( see swaymsg -rt get_inputs )
+input type:pointer {
     natural_scroll enable
 }
+
 # Keyboard Layout us <-> de toggle
-exec_always "setxkbmap -layout 'us,ch(de)'"
-exec_always "setxkbmap -option 'grp:alt_shift_toggle'"
+input type:keyboard {
+    xkb_layout us,ch
+    xkb_variant ,de
+    xkb_options grp:alt_shift_toggle
+}
 
 set $sway-config-directory ~/.config/sway/
 set $sway-scripts-directory ~/.config/sway/scripts/
