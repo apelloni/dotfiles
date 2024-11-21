@@ -6,13 +6,42 @@
 
 # Execute pulseaudio command
 CMD="$1"
-pulseaudio-ctl $CMD
+#pulseaudio-ctl $CMD
 
-FULL_STATUS=($(pulseaudio-ctl full-status))
+case $CMD in
+    mute)
+        #pulseaudio-ctl mute
+        pactl set-sink-mute @DEFAULT_SINK@ toggle
+        ;;
+    up)
+        #pulseaudio-ctl up
+        pactl set-sink-volume @DEFAULT_SINK@ +5%
+        ;;
+    down)
+        #pulseaudio-ctl down
+        pactl set-sink-volume @DEFAULT_SINK@ -5%
+        ;;
+    #set)
+    #    #pulseaudio-ctl set 40
+    #    pactl set-sink-volume @DEFAULT_SINK@ 40%
+    #    ;;
+    mute-input)
+        #pulseaudio-ctl mute-input
+        pactl set-source-mute @DEFAULT_SOURCE@ toggle
+        ;;
+    *)
+        echo "Unkwon option for $0"
+        exit 1
+esac
 
-VOLUME=${FULL_STATUS[0]}
-SINK_MUTE=${FULL_STATUS[1]}
-SOURCE_MUTE=${FULL_STATUS[2]}
+#FULL_STATUS=($(pulseaudio-ctl full-status))
+#VOLUME=${FULL_STATUS[0]}
+#SINK_MUTE=${FULL_STATUS[1]}
+#SOURCE_MUTE=${FULL_STATUS[2]}
+
+VOLUME=`pactl get-sink-volume @DEFAULT_SINK@ | grep -oE "[0-9]+%" | head -1 | sed 's/%.*//'`
+SINK_MUTE=`pactl get-sink-mute @DEFAULT_SINK@ | grep -oE "(yes|no)"`
+SOURCE_MUTE=`pactl get-source-mute @DEFAULT_SOURCE@ | grep -oE "(yes|no)"`
 
 
 NOTIFY_ID=99299
