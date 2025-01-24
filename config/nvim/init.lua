@@ -92,6 +92,9 @@ require('nvim-tree').setup {
         show_on_dirs = true,
         show_on_open_dirs = true,
     },
+    diagnostics = {
+        enable = true,
+    },
     tab = {
         sync = {
             open = true,
