@@ -81,7 +81,17 @@ require("lazy").setup({
         end
     },
 
-    -- multicursor
+    -- Multicursor
+    --
+    --  Bindings:
+    --  - <C-n> to select next word match and add cursor
+    --  - <C-N> to select previous word match and add cursor
+    --  - q to skip current match and move to next one
+    --  - Q to unselect current match
+    --
+    --  Withing visual selection
+    --   press \\ (<leader><leader>) and then / to select all instances of the search
+    --      Examples: <leader><leader>/ branch
     { 'mg979/vim-visual-multi', branch = 'master' },
 
     -- LSP
