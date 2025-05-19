@@ -64,7 +64,6 @@ require("conform").setup({
     }
 })
 
-null_ls.setup({ sources = sources })
 
 
 -- [[ File Explorer ]]
