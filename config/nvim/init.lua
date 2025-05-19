@@ -35,24 +35,34 @@ require 'telescope'.setup { -- Telescope
     }
 }
 
--- [[ Format ]]
-local null_ls = require("null-ls")
+-- Copilot
+require("copilot").setup({
+    suggestion = { enabled = false },
+    panel = { enabled = false },
+})
 
--- register any number of sources simultaneously
-local sources = {
-    null_ls.builtins.formatting.rustfmt,      -- rust
-    null_ls.builtins.formatting.autopep8,     -- python
-    null_ls.builtins.formatting.isort,        -- python
-    null_ls.builtins.formatting.yamlfmt,      -- yaml
-    null_ls.builtins.formatting.fixjson,      -- json
-    null_ls.builtins.formatting.clang_format, -- c/cpp/cuda
-    null_ls.builtins.formatting.shfmt,        -- shell
-    null_ls.builtins.formatting.latexindent,  -- latex
-    null_ls.builtins.formatting.remark.with({ -- markdown
-            filetypes={'markdown','pandoc'}
-        }),
-    null_ls.builtins.code_actions.gitsigns,
- }
+-- allow pictures preview
+require('hologram').setup {
+    auto_display = true -- WIP automatic markdown image display, may be prone to breaking
+}
+
+-- -- [[ Format ]]
+require("conform").setup({
+    format_on_save = {
+        lsp_fallback = true,
+        timeout_ms = 500,
+    },
+    formatters_by_ft = {
+        python = { "autopep8", "isort" },
+        yaml = { "yamlfmt" },
+        json = { "fixjson" },
+        c = { "clang_format" },
+        cpp = { "clang_format" },
+        shell = { "shfmt" },
+        latex = { "latexindent" },
+        php = { "phpcsfixer" },
+    }
+})
 
 null_ls.setup({ sources = sources })
 

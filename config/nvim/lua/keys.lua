@@ -53,9 +53,9 @@ end
 
 -- [[ Format ]]
 -- format whole document in NORMAL mode
-keymap('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+keymap('n', '<leader>f', function() require("conform").format({ async = true, lsp_fallback = true }) end, bufopts)
 -- format selected lines in VISUAL mode
-keymap('v', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+keymap('v', '<leader>f', function() require("conform").format({ async = true, lsp_fallback = true }) end, bufopts)
 
 local lsp_flags = {
     -- This is the default in Nvim 0.7+
@@ -83,19 +83,20 @@ keymap('i', '<Tab>',
     function()
         return (
             (vim.fn.pumvisible() == 1 and '<C-N>')
-                or '<Tab>'
-            )
+            or '<Tab>'
+        )
     end,
     { noremap = true, silent = true, expr = true }
 )
 
 
+-- Use Shift-Tab to scroll up in the completion menu
 keymap('i', '<S-Tab>',
     function()
         return (
             (vim.fn.pumvisible() == 1 and '<C-P>')
-                or '<S-Tab>'
-            )
+            or '<S-Tab>'
+        )
     end,
     { noremap = true, silent = true, expr = true }
 )

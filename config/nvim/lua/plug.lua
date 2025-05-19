@@ -17,30 +17,69 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Import Plugins
 require("lazy").setup({
+    -- [[LUA]]
+    {
+        "vhyrro/luarocks.nvim",
+        priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
+        config = true,
+    },
     -- [[ Dev ]]
-    {'nvim-telescope/telescope.nvim', -- fuzzy finder
+    {
+        'nvim-telescope/telescope.nvim', -- fuzzy finder
         dependencies = { 'nvim-lua/plenary.nvim' },
     },
     -- enable sudo with SudaWrite
     'lambdalisue/vim-suda',
 
     -- fzf for current file
-    { 'ibhagwan/fzf-lua',
+    {
+        'ibhagwan/fzf-lua',
         dependencies = { 'kyazdani42/nvim-web-devicons' }
     },
-    { 'junegunn/fzf.vim',
+    {
+        'junegunn/fzf.vim',
         build = './install --bin'
     },
 
-    'majutsushi/tagbar',               -- code structure
-    'Yggdroot/indentLine',             -- see indentation
-    'junegunn/gv.vim',                 -- commit history
-    'RRethy/vim-illuminate',           -- Illuminate selected work
-    'jose-elias-alvarez/null-ls.nvim', -- Format
-    'rstacruz/vim-closer',             -- match brackets on Enter
-    'godlygeek/tabular',               -- tabularize
+    'majutsushi/tagbar',     -- code structure
+    'Yggdroot/indentLine',   -- see indentation
+    'junegunn/gv.vim',       -- commit history
+    'RRethy/vim-illuminate', -- Illuminate selected work
+    -- 'nvimtools/none-ls.nvim', -- Format
+    'rstacruz/vim-closer',   -- match brackets on Enter
+    'godlygeek/tabular',     -- tabularize
     -- use 'windwp/nvim-autopairs' -- auto close brackets, etc.
 
+    {
+        "stevearc/conform.nvim",
+        opts = {
+            format_on_save = {
+                lsp_fallback = true,
+                timeout_ms = 500,
+            },
+            formatters_by_ft = {
+                lua = { "stylua" },
+                python = { "black" }, -- or "autopep8", "isort"
+                javascript = { "prettier" },
+                typescript = { "prettier" },
+                json = { "prettier" },
+                markdown = { "prettier" },
+                sh = { "shfmt" },
+            },
+        },
+    },
+
+    -- COPILOT
+    {
+        "zbirenbaum/copilot-cmp",
+        dependencies = {
+            "hrsh7th/nvim-cmp",
+            "zbirenbaum/copilot.lua",
+        },
+        config = function()
+            require("copilot_cmp").setup()
+        end
+    },
 
     -- multicursor
     { 'mg979/vim-visual-multi', branch = 'master' },
@@ -66,6 +105,7 @@ require("lazy").setup({
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-cmdline',
     'hrsh7th/nvim-cmp',
+    "onsails/lspkind.nvim",
 
     -- For luasnip use
     'L3MON4D3/LuaSnip',
@@ -124,7 +164,7 @@ require("lazy").setup({
     },
 
     -- Addistional syntaxes
-    {'hura/vim-asymptote'},
+    { 'hura/vim-asymptote' },
 
     -- markdown pretty syntax
     -- 'vim-pandoc/vim-pandoc-syntax',
@@ -166,12 +206,14 @@ require("lazy").setup({
 
 
     -- [[ Theme ]]
-    'mhinz/vim-startify', -- start screen
-    'DanilaMihailov/beacon.nvim', -- cursor jump
+    'mhinz/vim-startify',            -- start screen
+    'DanilaMihailov/beacon.nvim',    -- cursor jump
     {
         'nvim-lualine/lualine.nvim', -- statusline
-        dependencies = { 'kyazdani42/nvim-web-devicons',
-            lazy = true }
+        dependencies = {
+            'kyazdani42/nvim-web-devicons',
+            lazy = true
+        }
     },
 
     -- colorscheme
@@ -180,7 +222,8 @@ require("lazy").setup({
     "olimorris/onedarkpro.nvim",
     "diegoulloao/neofusion.nvim",
     "fynnfluegge/monet.nvim",
-    {"navarasu/onedark.nvim",
+    {
+        "navarasu/onedark.nvim",
         config = function()
             require('onedark').setup({
                 style = "deep",
@@ -207,7 +250,8 @@ require("lazy").setup({
     },
 
     -- tabline
-    { 'romgrk/barbar.nvim',
+    {
+        'romgrk/barbar.nvim',
         dependencies = 'kyazdani42/nvim-web-devicons'
     },
 })
