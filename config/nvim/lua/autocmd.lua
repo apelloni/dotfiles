@@ -28,18 +28,18 @@ autocmd({ "BufReadPost" }, {
 
 -- [[ Execute Programs ]]
 --
--- nnoremap <Leader>r :w <CR>:!%:p <CR>
+-- nnoremap <Leader>r :w <CR>:!%:p:S <CR>
 autocmd("FileType", {
     pattern = "maple",
-    command = "nnoremap <Leader>r :w <CR>:!maple %:p <CR>"
+    command = "nnoremap <Leader>r :w <CR>:!maple %:p:S <CR>"
 })
 autocmd("FileType", {
     pattern = "form",
-    command = "nnoremap <Leader>r :w <CR>:!form %:p <CR>"
+    command = "nnoremap <Leader>r :w <CR>:!form %:p:S <CR>"
 })
 autocmd("FileType", {
     pattern = "python",
-    command = "nnoremap <Leader>r :w <CR>:!python %:p <CR>"
+    command = "nnoremap <Leader>r :w <CR>:!python %:p:S <CR>"
 })
 autocmd("FileType", {
     pattern = "rust",
@@ -47,7 +47,7 @@ autocmd("FileType", {
 })
 autocmd("FileType", {
     pattern = "markdown",
-    command = "nnoremap <Leader>r :w <CR>:!glow %:p<CR>"
+    command = "nnoremap <Leader>r :w <CR>:!glow %:p:S<CR>"
 
 })
 autocmd("FileType", {
@@ -57,14 +57,14 @@ autocmd("FileType", {
 })
 autocmd("FileType", {
     pattern = "tex",
-    command = "nnoremap <Leader>r :w <CR>:!pdflatex %:p <CR>"
+    command = "nnoremap <Leader>r :w <CR>:!pdflatex %:p:S <CR>"
 })
 
 -- [[ FileType]]
 local wolfram_syntax = augroup("wolfram_syntax", { clear = true })
 autocmd({ "BufNewFile", "BufFilePre", "BufRead" },
     {
-        pattern = {"*.wl","*.m"},
+        pattern = { "*.wl", "*.m" },
         command = "setlocal filetype=mma",
         group = wolfram_syntax,
     }
