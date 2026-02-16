@@ -2,19 +2,41 @@
 
 # First argument: Primary monitor
 # Second argument: Secondary monitor
-EXTERNAL_SCREEN=$(xrandr | grep " connected" | grep -Eo "^$2")
 
-if  xrandr --listactivemonitors | grep -Eq " $2"; then
-	xrandr --output "$EXTERNAL_SCREEN" --off
-	xrandr --output "$1" --auto
-    ~/.config/i3/scripts/resize_screen 1
-elif  xrandr --listactivemonitors | grep -q "$1"; then
-	xrandr --output "$1" --off
-	xrandr --output "$EXTERNAL_SCREEN" --auto
-    ~/.config/i3/scripts/resize_screen 1
-#    sleep 1
-#    ~/.config/i3/scripts/resize_screen 1.3
-else
-	xrandr --output "$1" --auto
-    ~/.config/i3/scripts/resize_screen 1
+# Find the first connected output that isn't eDP-1
+INTERNAL=$1
+EXTERNAL=$(swaymsg -t get_outputs |
+    jq -r ".[] | select(.name != \"${INTERNAL}\") | .name" |
+    head -n 1)
+
+echo $INTERNAL
+echo $EXTERNAL
+if [[ -z $EXTERNAL ]]; then
+    echo "No external monitor found."
+    echo "Making sure the internal is enabled."
+    swaymsg output "$INTERNAL" enable
+    exit 0
 fi
+
+case $2 in
+internal)
+    swaymsg output "$EXTERNAL" disable
+    swaymsg output "$INTERNAL" enable
+    ;;
+external)
+    swaymsg output "$INTERNAL" disable
+    swaymsg output "$EXTERNAL" enable
+    ;;
+dual)
+    swaymsg output "$INTERNAL" enable
+    swaymsg output "$EXTERNAL" enable
+    ;;
+*)
+    echo "Usage: $0 <internal monitor> {internal|external|dual}"
+    echo "  - internal: Use internal monitor only"
+    echo "  - external: Use external monitor only"
+    echo "  - dual: Use both monitors"
+    echo "Received: $0 $1 $2"
+    exit 1
+    ;;
+esac

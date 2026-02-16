@@ -22,6 +22,7 @@ input type:keyboard {
     xkb_layout us,ch
     xkb_variant ,de
     xkb_options grp:alt_shift_toggle
+    xkb_numlock enable
 }
 
 set $sway-config-directory ~/.config/sway/
@@ -36,7 +37,7 @@ exec xset s off
 exec xset dpms 0 0 1200
 
 # Conky
-exec_always ~/.config/conky/Mesarthim/start.sh
+#exec_always ~/.config/conky/Mesarthim/start.sh
 
 ###################
 # Functionality
@@ -73,27 +74,30 @@ font pango:monospace 10
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 # exec dex --autostart --environment i3
 
+# use hypridle to active swaylock
+exec hypridle
 # use swayidle to active swaylock
-exec swayidle -w \
-	before-sleep 'loginctl lock-session $XDG_SESSION_ID' \
-	lock 'playerctl -a pause; swaylock --config $sway-config-directory/swaylock.conf'
+# exec swayidle -w \
+# 	before-sleep 'loginctl lock-session $XDG_SESSION_ID' \
+# 	lock 'playerctl -a pause; swaylock --config $sway-config-directory/swaylock.conf'
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
-bindsym XF86AudioLowerVolume exec $sway-scripts-directory/volume-control.sh down
-bindsym XF86AudioRaiseVolume exec $sway-scripts-directory/volume-control.sh up
-bindsym XF86AudioMute exec $sway-scripts-directory/volume-control.sh mute
-bindsym XF86AudioMicMute exec $sway-scripts-directory/volume-control.sh mute-input
+set $volume-ctrl ~/.config//scripts/volume-control.sh
+bindsym XF86AudioLowerVolume exec $volume-ctrl down
+bindsym XF86AudioRaiseVolume exec $volume-ctrl up
+bindsym XF86AudioMute exec $volume-ctrl mute
+bindsym XF86AudioMicMute exec $volume-ctrl mute-input
 
 # Use brightnessctl to adjust brightness
 bindsym XF86MonBrightnessUp exec $sway-scripts-directory/brightness-control.sh up
 bindsym XF86MonBrightnessDown exec $sway-scripts-directory/brightness-control.sh down
 
 # warm/cold brightness
-exec wl-gammarelay
+exec_always pkill wl-gammarelay; wl-gammarelay
 bindsym $mod+Ctrl+1 exec busctl --user -- set-property rs.wl-gammarelay / rs.wl.gammarelay Temperature q 6500
 bindsym $mod+Ctrl+2 exec busctl --user -- set-property rs.wl-gammarelay / rs.wl.gammarelay Temperature q 4500
 bindsym $mod+Ctrl+3 exec busctl --user -- set-property rs.wl-gammarelay / rs.wl.gammarelay Temperature q 2500
@@ -108,6 +112,18 @@ bindsym Print exec grim -g "`slurp`" - | wl-copy --type image/png \
 # To Check which are the monitor one can use xrandr
 set $monitor-default eDP-1
 set $monitor-external "(HDMI-1|DP-[1-9])"
+
+set $mode_display (b)uilt-in, (e)xternal, (d)ual
+mode "$mode_display" {
+    bindsym b exec $sway-scripts-directory/screen-switch.sh $monitor-default internal, mode "default"
+    bindsym e exec $sway-scripts-directory/screen-switch.sh $monitor-default external, mode "default"
+    bindsym d exec $sway-scripts-directory/screen-switch.sh $monitor-default dual, mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+XF86Display mode "$mode_display"
+bindsym XF86Display exec $sway-scripts-directory/rofi-monitors.sh
 #bindsym XF86Display exec sh $sway-scripts-directory/screen-switch.sh $monitor-default $monitor-external
 #bindsym $mod+F7 exec sh $sway-scripts-directory/screen-switch.sh $monitor-default $monitor-external
 
@@ -119,6 +135,9 @@ bindswitch --reload --locked lid:off output $laptop enable
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
+
+# start file explorer
+bindsym $mod+e exec nemo
 
 # start a terminal
 bindsym $mod+Return exec kitty
@@ -187,10 +206,17 @@ bindsym $mod+c move position center
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
+# maximize window
+bindsym $mod+m [con_mark="maximize"] floating disable; \
+    [con_mark="float"] floating enable, unmark "float"; \
+    [con_id=__focused__] mark --add --toggle "maximize"; \
+    [con_mark="maximize" floating] mark --add "float"; \
+    [con_mark="maximize"] floating enable, resize set 100 ppt 100 ppt, move position 0 0
+
 # change container layout (stacked, tabbed, toggle split)
 #bindsym $mod+s layout stacking
 #bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+#bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -323,12 +349,13 @@ gaps left $gap
 
 # Fix windows workspace
 for_window [app_id="firefox"] move container to workspace $ws1
+for_window [class="Brave-browser"] move container to workspace $ws1
 for_window [instance="Mail"] move container to workspace $ws5
 for_window [class="[Zz]oom"] move container to workspace $ws6
 for_window [app_id="^join\?action=join.*$"] move container to workspace $ws6
-for_window [class="[Zz]ulip"] move container to workspace $ws8
+for_window [app_id="[Zz]ulip"] move container to workspace $ws8
 for_window [class="[Ss]lack"] move container to workspace $ws9
-for_window [class="[Ee]lement"] move container to workspace $ws9
+for_window [app_id="[Ee]lement"] move container to workspace $ws9
 for_window [class="^[Bb]etterbird$"] move container to workspace $ws5
 for_window [app_id="^[Tt]askade$"] move container to workspace $ws7
 
@@ -341,6 +368,8 @@ for_window [app_id="[Pp]avucontrol"] resize set width 50 ppt
 for_window [app_id="[Pp]avucontrol"] resize set width 50 ppt
 for_window [app_id="[Pp]avucontrol"] move position center
 
+# uDisk
+for_window [app_id="^udiskie$"] floating enable
 
 
 # Define floating windows
@@ -356,11 +385,11 @@ for_window [app_id="^[Ss]pectacle$"] floating enable
 
 
 ## BORDERS
-for_window [app_id="^.*"] border pixel 5
+for_window [app_id="^.*"] border pixel 7
 # class                 border  backgr. text    indicator child_border
 #client.focused         #4C7899 #285577 #FFFFFF #FF9EF4   #FF9EF4
 client.focused          #4C7899 #285577 #FFFFFF #3A98B9   #3A98B9
-client.focused_inactive #333333 #5F676A #FFFFFF #484E5000 #5F676A00
+client.focused_inactive #333333 #5F676A #FFFFFF #484E5080 #5F676A80
 client.unfocused        #333333 #222222 #888888 #292D2E   #222222
 client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
 client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
@@ -384,6 +413,56 @@ exec firefox
 exec dropbox
 exec betterbird
 #exec thunderbird
+
+
+# Default config for sway
+#
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
+
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+# Your preferred terminal emulator
+set $term foot
+# Your preferred application launcher
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+set $menu dmenu_path | wmenu | xargs swaymsg exec --
+
+### Appearance
+# window corner radius in px
+corner_radius 7
+
+# Window background blur
+blur on
+blur_xray on
+blur_passes 3
+blur_radius 5
+
+shadows off
+shadows_on_csd off
+shadow_blur_radius 20
+shadow_color #0000007F
+
+# Other layers (not windows)
+layer_effects 'waybar' 'blur enable; blur_ignore_transparent enable'
+layer_effects 'rofi' 'blur enable; blur_ignore_transparent enable; corner_radius 20'
+
+# inactive window fade amount. 0.0 = no dimming, 1.0 = fully dimmed
+default_dim_inactive 0.0
+dim_inactive_colors.unfocused #000000FF
+dim_inactive_colors.urgent #900000FF
+
+# Move minimized windows into Scratchpad (enable|disable)
+scratchpad_minimize disable
 
 
 
