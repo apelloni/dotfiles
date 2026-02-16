@@ -1,12 +1,13 @@
 --[[ keys.lua ]]
 local map = vim.api.nvim_set_keymap
 local keymap = vim.keymap.set
+local lspconfig = vim.lsp.config
 
 -- [[ nvim- tree ]]
 map('n', 't', [[:NvimTreeFocus<CR>]], {}) -- Focus/Open; to close use `q`
 
 -- [[ FZF ]]
-map('n', '<C-f>', [[:FzfLua blines <CR>]],{noremap=true,silent=true})
+map('n', '<C-f>', [[:FzfLua blines <CR>]], { noremap = true, silent = true })
 
 
 -- [[ Telescope ]]
@@ -61,15 +62,15 @@ local lsp_flags = {
     -- This is the default in Nvim 0.7+
     debounce_text_changes = 150,
 }
-require('lspconfig')['pyright'].setup {
+lspconfig['pyright'] = {
     on_attach = on_attach,
     flags = lsp_flags,
 }
-require('lspconfig')['ts_ls'].setup {
+lspconfig['ts_ls'] = {
     on_attach = on_attach,
     flags = lsp_flags,
 }
-require('lspconfig')['rust_analyzer'].setup {
+lspconfig['rust_analyzer'] = {
     on_attach = on_attach,
     flags = lsp_flags,
     -- Server-specific settings...

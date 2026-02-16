@@ -61,9 +61,30 @@ require("conform").setup({
         shell = { "shfmt" },
         latex = { "latexindent" },
         php = { "phpcsfixer" },
+        markdown = { "remark-cli" },
     }
 })
 
+-- local null_ls = require("null-ls")
+--
+-- -- register any number of sources simultaneously
+-- local sources = {
+--     null_ls.builtins.formatting.rustfmt,      -- rust
+--     null_ls.builtins.formatting.autopep8,     -- python
+--     null_ls.builtins.formatting.isort,        -- python
+--     null_ls.builtins.formatting.yamlfmt,      -- yaml
+--     null_ls.builtins.formatting.fixjson,      -- json
+--     null_ls.builtins.formatting.clang_format, -- c/cpp/cuda
+--     null_ls.builtins.formatting.shfmt,        -- shell
+--     null_ls.builtins.formatting.latexindent,  -- latex
+--     null_ls.builtins.formatting.phpcsfixer,   -- php
+--     null_ls.builtins.formatting.remark.with({ -- markdown
+--             filetypes={'markdown','pandoc'}
+--         }),
+--     null_ls.builtins.code_actions.gitsigns,
+--  }
+--
+-- null_ls.setup({ sources = sources })
 
 
 -- [[ File Explorer ]]

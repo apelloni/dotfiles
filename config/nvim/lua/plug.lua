@@ -145,6 +145,26 @@ require("lazy").setup({
     -- Dim all but the current paragraph using Limelight
     'junegunn/limelight.vim',
 
+    -- TODO
+    {
+        'nvim-orgmode/orgmode',
+        event = 'VeryLazy',
+        ft = { 'org' },
+        config = function()
+            -- Setup orgmode
+            require('orgmode').setup({
+                org_agenda_files = '~/orgfiles/**/*',
+                org_default_notes_file = '~/orgfiles/refile.org',
+            })
+            -- NOTE: If you are using nvim-treesitter with ~ensure_installed = "all"~ option
+            -- add ~org~ to ignore_install
+            -- require('nvim-treesitter.configs').setup({
+            --   ensure_installed = 'all',
+            --   ignore_install = { 'org' },
+            -- })
+        end,
+    },
+
     -- Zen Mode
     {
         "folke/zen-mode.nvim",
@@ -185,19 +205,6 @@ require("lazy").setup({
     --         lazy = true
     --     }
     -- },
-    {
-        "OXY2DEV/markview.nvim",
-        lazy = false, -- Recommended
-        -- ft = "markdown" -- If you decide to lazy-load anyway
-
-        dependencies = {
-            -- You will not need this if you installed the
-            -- parsers manually
-            -- Or if the parsers are in your $RUNTIMEPATH
-            "nvim-treesitter/nvim-treesitter",
-            "nvim-tree/nvim-web-devicons"
-        }
-    },
 
     -- markdown preview
     {
@@ -232,6 +239,12 @@ require("lazy").setup({
     "olimorris/onedarkpro.nvim",
     "diegoulloao/neofusion.nvim",
     "fynnfluegge/monet.nvim",
+    "rebelot/kanagawa.nvim",
+    {
+        "scottmckendry/cyberdream.nvim",
+        lazy = false,
+        priority = 1000,
+    },
     {
         "navarasu/onedark.nvim",
         config = function()

@@ -78,6 +78,20 @@ autocmd("VimEnter", {
     command = [[if !&diff | let g:beacon_enable = 1 | endif]]
 })
 
+-- [[ Markdown Syntax ]]
+-- augroup pandoc_syntax
+--    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+-- augroup END
+-- local pandoc_syntax = augroup("pandoc_syntax", { clear = true })
+-- autocmd({ "BufNewFile", "BufFilePre", "BufRead" },
+--     {
+--         pattern = "*.md",
+--         command = "setlocal syntax=markdonw.pandoc",
+--         group = pandoc_syntax,
+--     }
+-- )
+
+
 -- [[ Folding ]]
 --
 -- " Maple folding between #:[--- and #:---]

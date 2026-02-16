@@ -1,3 +1,5 @@
+local lspconfig = vim.lsp.config
+--
 -- [[ Manage Install/Uninstall LSP  ]]
 require("mason").setup {}
 require("mason-lspconfig").setup {
@@ -16,11 +18,12 @@ require("mason-lspconfig").setup {
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 
-require 'lspconfig'.pyright.setup { capabilities = capabilities }
-require 'lspconfig'.clangd.setup { capabilities = capabilities }
-require 'lspconfig'.jedi_language_server.setup { capabilities = capabilities }
-require 'lspconfig'.texlab.setup { capabilities = capabilities }
-require 'lspconfig'.lua_ls.setup {
+lspconfig['pyright'] = { capabilities = capabilities }
+lspconfig['clangd'] = { capabilities = capabilities }
+lspconfig['jedi_language_server'] = { capabilities = capabilities }
+lspconfig['remark_ls'] = { settings = { remark = {} } }
+lspconfig['texlab'] = { capabilities = capabilities }
+lspconfig['lua_ls'] = {
     settings = {
         Lua = {
             diagnostics = {
@@ -30,7 +33,7 @@ require 'lspconfig'.lua_ls.setup {
         },
     },
 }
-require 'lspconfig'.rust_analyzer.setup {
+lspconfig.rust_analyzer = {
     capabilities = capabilities,
     --    settings = {
     --        ["rust-analyzer"] = {
@@ -52,14 +55,14 @@ local _border = "rounded"
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
     vim.lsp.handlers.hover, {
-    border = _border
-}
+        border = _border
+    }
 )
 
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
     vim.lsp.handlers.signature_help, {
-    border = _border
-}
+        border = _border
+    }
 )
 
 vim.diagnostic.config {
@@ -96,13 +99,11 @@ local opts = {
             -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
             ["rust-analyzer"] = {
                 -- enable clippy on save
-                checkOnSave = {
-                    command = "clippy",
-                },
+                checkOnSave = true,
             },
         },
     },
 }
 
-require("rust-tools").setup(opts)
+lspconfig['rust-tools'] = opts
 --require'rust-tools'.inlay_hints.enable()
