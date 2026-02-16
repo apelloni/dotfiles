@@ -1,0 +1,30 @@
+/* Confirm Dialog */
+
+@import "styles/colors.rasi"
+
+* {
+    background-color:       @background;
+    text-color:             @foreground;
+	font:				 	"FantasqueSansMono Nerd Font Bold 12";
+}
+
+window {
+    width:      			245px;
+    padding:    			25px;
+    border:					2px;
+    border-radius:          100px;
+    border-color:           @border;
+    location:               center;
+    y-offset:               -2em;
+}
+
+
+inputbar {
+	children: 	[prompt,entry];
+}
+
+entry {
+    expand: 				true;
+    text-color:				@border;
+    blink:                  true;
+}
