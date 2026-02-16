@@ -13,13 +13,13 @@ alias egrep='egrep --color=auto'
 
 # some more ls aliases
 if (( $+commands[eza] )) then
-    alias lt='eza -alFh -snew'
-    alias ll='eza -alFh'
+    alias lt='eza -alh -F=always -snew'
+    alias ll='eza -alhF always'
     alias la='eza -a'
-    alias l='eza -F'
+    alias l='eza -F always'
 else
-    alias lt='ls -alFh -tr'
-    alias ll='ls -alFh'
+    alias lt='ls -alhF -tr'
+    alias ll='ls -alhF'
     alias la='ls -A'
     alias l='ls -CF'
 fi

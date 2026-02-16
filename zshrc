@@ -8,8 +8,8 @@ export PATH="$PATH:/home/andrea/Programs/aeir_v3_0/SecDec-3.0.6"
 
 # run ssh-agent in i3
 (( $+commands[wmctrl] )) &&
-    if wmctrl -m | grep -q "Name: i3"; then
-        eval $(keychain --eval --agents ssh --quick --quiet)
+    if wmctrl -m | grep -qE "Name: (i3|wlroots wm|Hyprland)"; then
+        eval $(keychain --eval --ssh-allow-gpg --quick --quiet)
     fi
 
 # If you come from bash you might have to change your $PATH.
