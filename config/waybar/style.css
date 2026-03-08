@@ -73,10 +73,26 @@ window#waybar {
     color: @soft-yellow;
 }
 
-#clock, #battery, #cpu, #memory,#idle_inhibitor, #temperature,
-#custom-keyboard-layout, #backlight, #network, #pulseaudio, #disk,
-#mode, #tray, #window, #custom-launcher, #custom-power, #custom-pacman, #language,
-#custom-brightness{
+#clock,
+#battery,
+#cpu,
+#memory,
+#idle_inhibitor,
+#temperature,
+#custom-keyboard-layout,
+#backlight,
+#network,
+#pulseaudio,
+#disk,
+#custom-disk_decimal,
+#mode,
+#tray,
+#window,
+#custom-launcher,
+#custom-power,
+#custom-pacman,
+#language,
+#custom-brightness {
     padding: 0 3px;
     border: 2px solid;
     border-bottom: 2px;
@@ -298,6 +314,13 @@ window#waybar {
 }
 
 #disk {
+    /*color: #d3869b;*/
+    color: @soft-green;
+    border-radius: 0px 100px 100px 0px;
+    border-left: 0px;
+}
+
+#custom-disk_decimal {
     /*color: #d3869b;*/
     color: @soft-green;
     border-radius: 0px 100px 100px 0px;

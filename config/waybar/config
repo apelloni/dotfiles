@@ -8,7 +8,7 @@
 	"modules-left": [
 		"sway/workspaces#3",
         "sway/mode",
-		"hyprland/workspaces#3",
+		//"hyprland/workspaces#3",
         "custom/blank", "custom/blank",
         "custom/updates",
 	],
@@ -28,7 +28,7 @@
         "custom/blank", "custom/blank",
 		"cpu",
 		"memory",
-		"disk",
+        "custom/disk_decimal",
         "custom/blank", "custom/blank",
 		"battery",
         "custom/blank",
@@ -269,6 +269,14 @@
 		"format": "  {percentage_used:2}%",
 		"path": "/"
 	},
+
+    "custom/disk_decimal": {
+        "format": "  {}%",
+        "exec": "df --si / | grep / | awk '{ print $5 }' | sed 's/%//'",
+        "interval": 60,
+        "tooltip": false
+    },
+
 
     "network": {
         "format": "{ifname}",
