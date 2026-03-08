@@ -89,9 +89,16 @@ source $ZSH_CUSTOM/plugins/solarized-man/solarized-man.plugin.zsh
 autoload -Uz select-word-style
 select-word-style bash
 
-# Move forward/backward by one word using alt+arrow
-bindkey "${terminfo[kRIT3]}" forward-word
-bindkey "${terminfo[kLFT3]}" backward-word
+# Carica il modulo terminfo
+zmodload zsh/terminfo
+
+## Move forward/backward by one word using alt+arrow
+#bindkey "${terminfo[kRIT3]}" forward-word
+#bindkey "${terminfo[kLFT3]}" backward-word
+
+# Move forward/backward by one word using ctrl+arrow
+bindkey "${terminfo[kRIT5]}" forward-word
+bindkey "${terminfo[kLFT5]}" backward-word
 
 # Completion Styles
 
