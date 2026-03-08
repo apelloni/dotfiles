@@ -6,6 +6,10 @@
 #
 
 
+#exec --no-startup-id dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland XDG_CURRENT_DESKTOP=sway XDG_SESSION_DESKTOP=sway GDK_BACKEND=wayland QT_QPA_PLATFORM=wayland SDL_VIDEODRIVER=wayland
+exec --no-startup-id dbus-update-activation-environment --all
+
+
 # Get input devices with swaymsg -t get_input
 set $TOUCHPAD "1267:12792:ELAN067B:00_04F3:31F8_Touchpad"
 input $TOUCHPAD {
@@ -242,6 +246,7 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
+set $wsProjector "11"
 
 # workspace dispaly output
 workspace 1 output primary
