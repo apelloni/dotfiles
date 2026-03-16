@@ -52,12 +52,56 @@ format-background = ${color.black}
 format-foreground = ${color.foreground}
 exec = ~/.config/i3/scripts/rofi-bluetooth --status
 interval = 1
-click-left = ~/.config/i3/scripts/rofi-bluetooth &
+click-left = blueman-manager
 
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 [module/volume]
+type = internal/pulseaudio
+
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
+sink = alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__Headphones__sink
+
+use-ui-max = false
+reverse-scroll = true
+interval = 5
+
+format-volume = <ramp-volume><label-volume>
+
+format-muted = <label-muted>
+format-muted-prefix = " 󰝟 "
+format-muted-prefix-font = 3
+format-muted-prefix-padding = 1
+format-muted-prefix-foreground = ${color.foreground}
+format-muted-prefix-background = ${color.black}
+
+label-muted = " "
+label-muted-background = ${color.black}
+label-muted-foreground = ${color.font}
+label-muted-padding = 3
+
+ramp-volume-0 = " "
+ramp-volume-font = 3
+ramp-volume-foreground = ${color.foreground}
+ramp-volume-background = ${color.black}
+
+label-volume = "%percentage%% "
+label-volume-background = ${color.black}
+label-volume-foreground = ${color.font}
+label-volume-padding = 2
+
+; Right and Middle click
+click-right = pavucontrol -t 5
+; click-middle =
+
+ramp-headphones-0 = " "
+ramp-headphones-1 = " "
+
+;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+[module/volume-animated]
 type = internal/pulseaudio
 
 ; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
@@ -125,7 +169,7 @@ format-charging-prefix =
 format-discharging = %{A1:~/.config/polybar/battery/battery.sh:}<ramp-capacity><label-discharging>%{A}
 
 format-full = %{A1:~/.config/polybar/battery/battery.sh:}<label-full>%{A}
-format-full-prefix = "  "
+format-full-prefix = " "
 format-full-prefix-font = 3
 format-full-prefix-foreground = ${color.font}
 format-full-prefix-background = ${color.black}
@@ -133,6 +177,10 @@ format-full-prefix-background = ${color.black}
 label-charging = "%percentage%% "
 label-discharging = "%percentage%% "
 label-full = "%percentage%% "
+
+label-charging-padding = 1
+label-discharging-padding = 1
+label-full-padding = 1
 
 label-charging-background = ${color.black}
 label-discharging-background = ${color.black}
@@ -213,14 +261,15 @@ label-separator-background = ${color.black}
 type = internal/memory
 interval = 2
 format = <ramp-used><label>
-format-background = ${color.font}
+format-background = ${color.black}
 
-ramp-used-0 = " "
-ramp-used-1 = " "
-ramp-used-2 = " "
-ramp-used-3 = " "
-ramp-used-4 = " "
-ramp-used-5 = " "
+;ramp-used-0 = " "
+ramp-used-0 = "  "
+ramp-used-1 = "  "
+ramp-used-2 = "  "
+ramp-used-3 = "  "
+ramp-used-4 = "  "
+ramp-used-5 = "  "
 ramp-used-0-foreground = ${color.red-to-green-6}
 ramp-used-1-foreground = ${color.red-to-green-5}
 ramp-used-2-foreground = ${color.red-to-green-4}
@@ -233,6 +282,7 @@ ramp-used-foreground = ${color.foreground}
 ramp-used-background = ${color.black}
 
 label = "%{A1:kitty -e htop &:}%percentage_used%% %{A}"
+label-padding = 1
 label-background = ${color.black}
 label-foreground = ${color.font}
 
@@ -269,13 +319,13 @@ label-foreground = ${color.font}
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 [module/powermenu]
 type = custom/text
-content = "%{T2}⏻ %{T-}"
+format = "%{T2}⏻ %{T-}"
 interval = 1
 format-margin = 0
-content-font = 1
-content-foreground= ${color.foreground}
-content-background = ${color.black}
-content-padding = 1
+format-font = 1
+format-foreground= ${color.foreground}
+format-background = ${color.black}
+format-padding = 1
 click-left= ~/.config/rofi/powermenu/powermenu.sh
 
 
@@ -349,11 +399,11 @@ label-unmounted-background = ${color.foreground}
 
 [module/launcher]
 type=custom/text
-content = " "
-content-font = 2
-content-foreground= ${color.black}
-content-background = ${color.foreground}
-content-padding = 0
+format = " "
+format-font = 2
+format-foreground= ${color.black}
+format-background = ${color.foreground}
+format-padding = 0
 click-left=~/.config/rofi/launchers/colorful/launcher.sh
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -452,45 +502,58 @@ ramp-signal-5-foreground= ${color.red-to-green-6}
 ramp-signal-foreground = ${color.black}
 ramp-signal-background = ${color.background}
 ramp-signal-font = 3
+
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
+[module/systray]
+type = internal/tray
+tray-size = 66%
+tray-spacing = 8px
+tray-background = ${color.black}
+format-background = ${color.black}
 
+; Colore passato alle icone (per evitare bordi strani o trasparenze residue)
+;tray-background = #282A2E
+;tray-background = #282A2E
+
+;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 [module/backlight]
 type = internal/backlight
 
 ; Use the following command to list available cards:
 ; $ ls -1 /sys/class/brightness/
-card = intel_backlight
+;card = intel_backlight
 
 use-actual-brightness = true
 
-enable-scroll = false
+enable-scroll = true
 reverse-scroll = true
 
-;format = <ramp> <label>
-format = <ramp>
+;format = <ramp>
+format = "<ramp> <label>"
 format-background = ${color.black}
-format-padding = 0
+format-padding = 2
 
-label =%percentage%%
+label = "%percentage%% "
 label-foreground = ${color.font}
 
-ramp-0 = "󰛩 "
-ramp-1 = "󱩎 "
-ramp-2 = "󱩏 "
-ramp-3 = "󱩐 "
-ramp-4 = "󱩒 "
-ramp-5 = "󱩓 "
-ramp-6 = "󱩓 "
-ramp-7 = "󱩔 "
-ramp-8 = "󱩕 "
-ramp-9 = "󱩖 "
-ramp-10 = "󰛨 "
+;ramp-0 = "󰛩 "
+;ramp-1 = "󱩎 "
+;ramp-2 = "󱩏 "
+;ramp-3 = "󱩐 "
+;ramp-4 = "󱩒 "
+;ramp-5 = "󱩓 "
+;ramp-6 = "󱩓 "
+;ramp-7 = "󱩔 "
+;ramp-8 = "󱩕 "
+;ramp-9 = "󱩖 "
+;ramp-10 = "󰛨 "
 ;ramp-1 = %{}󰃟 %{}
 ;ramp-2 = %{}󰃟 %{}
 ;ramp-3 = %{}󰃝 %{}
 ;ramp-4 = %{}󰃠 %{}
+ramp-0 = "󰃠 "
 ramp-font = 3
 Ramp-foreground = ${color.foreground}
 
@@ -507,7 +570,7 @@ layout-icon-default = "  "
 layout-icon-0 = us;
 layout-icon-1 = ch;
 
-format-prefix = ""
+format-prefix = "%{T2} %{T-} "
 format-prefix-foreground = ${color.foreground}
 format-prefix-background = ${color.black}
 
@@ -521,9 +584,9 @@ label-layout-margin = 0
 ; Indicator icons name;off icon;on icon
 blacklist-0 = scroll lock
 
-indicator-icon-0 = caps lock;;󰘲
+indicator-icon-0 = caps lock;;%{T2}󰘲 %{T-}
 indicator-icon-1 = scroll lock;;+SL
-indicator-icon-2 = num lock;;󰼏
+indicator-icon-2 = num lock;;%{T2}󰼏 %{T-}
 
 label-indicator-on = %icon%
 label-indicator-on-background = ${color.black}
@@ -561,8 +624,41 @@ icon-stop = 
 icon-play = 
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+[module/i3-circles]
+type = custom/script
+exec = ~/.config/polybar/i3-circles.py
+# How often it checks for workspace changes (0.1 seconds makes it feel instant)
+interval = 0.1
+
+# Optional: Allow you to use your mouse scroll wheel to change workspaces!
+scroll-up = i3-msg workspace next_on_output
+scroll-down = i3-msg workspace prev_on_output
+
+format-background = ${color.black}
+format-foreground = ${color.foreground}
+
+;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+[module/i3-circles-v2]
+type = custom/script
+exec = ~/.config/polybar/i3-circles-v2.py
+# How often it checks for workspace changes (0.1 seconds makes it feel instant)
+interval = 0.1
+
+# Optional: Allow you to use your mouse scroll wheel to change workspaces!
+scroll-up = i3-msg workspace next_on_output
+scroll-down = i3-msg workspace prev_on_output
+
+format-background = ${color.black}
+format-foreground = ${color.foreground}
+
+;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
 [module/i3]
 type = internal/i3
+pin-workspaces = true
+strip-wsnumbers = true
 
 ; This will split the workspace name on ':'
 ; Default: false
@@ -592,17 +688,22 @@ reverse-scroll = true
 ; ws-icon-[0-9]+ = <label>;<icon>
 ; NOTE: The <label> needs to match the name of the i3 workspace
 ; Neither <label> nor <icon> can contain a semicolon (;)
-; ❶ ❷ ❸ ❹ ❺ ❻ ❼ ❽ ❾
-ws-icon-0 = 1;%{T2}󰇧 %{T-}
+; ❶ ❷ ❸ ❹ ❺ ❻ ❼ ❽ ❾ ❿
+;ws-icon-0 = 1;%{T2}󰇧 %{T-}
+;ws-icon-4 = 5;%{T2}󰇮 %{T-}
+;ws-icon-7 = 8;%{T2} %{T-}
+;ws-icon-8 = 9;%{T2} %{T-}
+;ws-icon-9 = 10;%{T2}󰄧 %{T-}
+ws-icon-0 = 1;❶
 ws-icon-1 = 2;❷
 ws-icon-2 = 3;❸
 ws-icon-3 = 4;❹
-ws-icon-4 = 5;%{T2}󰇮 %{T-}
+ws-icon-4 = 5;❺
 ws-icon-5 = 6;❻
 ws-icon-6 = 7;❼
-ws-icon-7 = 8;%{T2} %{T-}
-ws-icon-8 = 9;%{T2} %{T-}
-ws-icon-9 = 10;%{T2}󰄧 %{T-}
+ws-icon-7 = 8;❽
+ws-icon-8 = 9;❾
+ws-icon-9 = 10;❿
 ws-icon-default = %{T2} %{T-}
 
 ; NOTE: You cannot skip icons, e.g. to get a ws-icon-6
@@ -666,7 +767,8 @@ label-urgent-background = ${color.black}
 ;label-urgent-padding = 4
 
 ; Separator in between workspaces
-label-separator = ""
+;label-separator = ""
+label-separator = "|"
 label-separator-padding = 1
 label-separator-foreground = ${color.foreground}
 label-separator-background = ${color.black}

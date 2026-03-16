@@ -1,188 +1,189 @@
 [module/spacing]
 type = custom/text
-content = " "
-content-background = ${color.background}
+format = " "
+format-background = ${color.background}
 
 [module/sep]
 type = custom/text
-content = " "
+;format = " "
+format = " "
 
-content-font = 4 ; use font-4
-content-background = ${color.background}
-content-foreground = ${color.foreground}
-content-padding = 0
+format-font = 4 ; use font-4
+format-background = ${color.background}
+format-foreground = ${color.foreground}
+format-padding = 0
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 [module/LD]
 type = custom/text
-content = "%{T3}%{T-}"
-content-background = ${color.background}
-content-foreground = ${color.altblack}
+format = "%{T3}%{T-}"
+format-background = ${color.background}
+format-foreground = ${color.altblack}
 
 [module/RD]
 type = custom/text
-content = "%{T3}%{T-}"
-content-background = ${color.black}
-content-foreground = ${color.foreground}
+format = "%{T3}%{T-}"
+format-background = ${color.black}
+format-foreground = ${color.foreground}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 [module/RLD]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.background}
-content-foreground = ${color.foreground}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.background}
+format-foreground = ${color.foreground}
 
 [module/RRD]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.background}
-content-foreground = ${color.foreground}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.background}
+format-foreground = ${color.foreground}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 [module/WLD]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.background}
-content-foreground = ${color.white}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.background}
+format-foreground = ${color.white}
 
 [module/WRD]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.background}
-content-foreground = ${color.white}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.background}
+format-foreground = ${color.white}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 
 [module/CLD]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.background}
-content-foreground = ${color.cyan}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.background}
+format-foreground = ${color.cyan}
 
 [module/CRD]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.background}
-content-foreground = ${color.cyan}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.background}
+format-foreground = ${color.cyan}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 
 [module/MLD]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.background}
-content-foreground = ${color.magenta}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.background}
+format-foreground = ${color.magenta}
 
 [module/MRD]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.background}
-content-foreground = ${color.magenta}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.background}
+format-foreground = ${color.magenta}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 
 [module/YLD]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.background}
-content-foreground = ${color.foreground}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.background}
+format-foreground = ${color.foreground}
 
 [module/YRD]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.background}
-content-foreground = ${color.yellow}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.background}
+format-foreground = ${color.yellow}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 
 [module/GLD]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.background}
-content-foreground = ${color.black}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.background}
+format-foreground = ${color.black}
 
 [module/GRD]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.background}
-content-foreground = ${color.black}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.background}
+format-foreground = ${color.black}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 [module/BLD]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 1
-content-background = ${color.black}
-content-foreground = ${color.foreground}
+format = "%{T3}%{T-}"
+format-font = 1
+format-background = ${color.black}
+format-foreground = ${color.foreground}
 
 [module/BRD]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.background}
-content-foreground = ${color.foreground}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.background}
+format-foreground = ${color.foreground}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 [module/YPL]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.black}
-content-foreground = ${color.black}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.black}
+format-foreground = ${color.black}
 
 [module/CPL]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.black}
-content-foreground = ${color.black}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.black}
+format-foreground = ${color.black}
 
 [module/GPL]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.black}
-content-foreground = ${color.black}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.black}
+format-foreground = ${color.black}
 
 [module/RPL]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.magenta}
-content-foreground = ${color.foreground}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.magenta}
+format-foreground = ${color.foreground}
 
 [module/MPL]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.blue}
-content-foreground = ${color.magenta}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.blue}
+format-foreground = ${color.magenta}
 
 [module/GMPL]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = ${color.magenta}
-content-foreground = ${color.green}
+format = "%{T3}%{T-}"
+format-font = 3
+format-background = ${color.magenta}
+format-foreground = ${color.green}
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
