@@ -6,8 +6,7 @@
 #
 
 # Keyboard Layout us <-> de toggle
-exec --no-startup-id "setxkbmap -layout 'us,ch(de)'"
-exec --no-startup-id "setxkbmap -option 'grp:alt_shift_toggle'"
+exec_always --no-startup-id "setxkbmap -layout us,ch -variant ,de -option 'grp:alt_shift_toggle'"
 
 set $i3-config-directory ~/.config/i3/
 set $i3-scripts-directory ~/.config/i3/scripts/
@@ -15,8 +14,20 @@ set $i3-scripts-directory ~/.config/i3/scripts/
 # Set Background
 exec --no-startup-id $i3-scripts-directory/fehbg
 
+# Start GNOME Keyring components
+exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
+exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh
+exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=pkcs11
+
+# Start the PolicyKit authentication agent
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+
 # Conky
-exec_always --no-startup-id ~/.config/conky/Mesarthim/start.sh
+#exec_always --no-startup-id ~/.config/conky/Mesarthim/start.sh
+
+# Applet for polybar tray
+exec --no-startup-id blueman-applet
+
 
 ###################
 # Functionality
@@ -26,9 +37,9 @@ exec_always --no-startup-id picom --conf ~/.config/picom.conf
 # Notifications
 exec --no-startup-id dunst -conf $i3-config-directory/dunstrc1
 # Battery
-exec --no-startup-id $i3-scripts-directory/i3-battery-popup -n -l15 -L20
+#exec --no-startup-id $i3-scripts-directory/i3-battery-popup -n -l15 -L20
 # udisk2 manager
-exec --no-startup-id udiskie
+#exec --no-startup-id udiskie
 
 ###################
 
@@ -40,7 +51,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 10
+font pango:monospace 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -55,17 +66,19 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+#exec_always --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -c#1f4c7a
+exec_always --no-startup-id xss-lock --transfer-sleep-lock -- $i3-scripts-directory/lock.sh
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
-bindsym XF86AudioLowerVolume exec --no-startup-id $i3-scripts-directory/volume-control.sh down
-bindsym XF86AudioRaiseVolume exec --no-startup-id $i3-scripts-directory/volume-control.sh up
-bindsym XF86AudioMute exec --no-startup-id $i3-scripts-directory/volume-control.sh mute
-bindsym XF86AudioMicMute exec --no-startup-id $i3-scripts-directory/volume-control.sh mute-input
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Use brightnessctl to adjust brightness
 bindsym XF86MonBrightnessUp exec --no-startup-id $i3-scripts-directory/brightness-control.sh up
@@ -73,18 +86,24 @@ bindsym XF86MonBrightnessDown exec --no-startup-id $i3-scripts-directory/brightn
 
 # Monitors
 # To Check which are the monitor one can use xrandr
-set $monitor-default eDP-1
-set $monitor-external "(HDMI-1|DP-[1-2])"
+set $monitor-default eDP
+set $monitor-external "(HDMI-1|HDMI-A-0|DP-[1-2]|DisplayPort-[0-5])"
 bindsym XF86Display exec --no-startup-id sh $i3-scripts-directory/screen-switch.sh $monitor-default $monitor-external
 bindsym $mod+F7 exec --no-startup-id sh $i3-scripts-directory/screen-switch.sh $monitor-default $monitor-external
-
 
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# move tiling windows via drag & drop by left-clicking into the title bar,
+# or left-clicking anywhere into the window while holding the floating modifier.
+tiling_drag modifier titlebar
+
 # start a terminal
 bindsym $mod+Return exec kitty
+
+# File Explorer
+bindsym $mod+e exec nemo
 
 # kill focused window
 bindsym $mod+q kill
@@ -92,13 +111,17 @@ bindsym $mod+q kill
 # Autotiling
 exec_always --no-startup-id autotiling -w 1 2 3 4 5 6 7 8 9 0
 
+# start dmenu (a program launcher)
+#bindsym $mod+d exec --no-startup-id dmenu_run
 # start rofi (a program launcher)
 #bindsym $mod+d exec --no-startup-id rofi -i -show drun -modi drun -show-icons
 bindsym $mod+d exec --no-startup-id ~/.config/rofi/launchers/colorful/launcher.sh
 bindsym $mod+Shift+d exec --no-startup-id ~/.config/rofi/launchers/colorful/windows.sh
 #bindsym $mod+Shift+d exec --no-startup-id rofi -show window
-bindsym $mod+n exec --no-startup-id $i3-scripts-directory/wifi-menu
-bindsym $mod+b exec --no-startup-id $i3-scripts-directory/rofi-bluetooth
+#bindsym $mod+b exec --no-startup-id $i3-scripts-directory/rofi-bluetooth
+#bindsym $mod+n exec --no-startup-id $i3-scripts-directory/wifi-menu
+bindsym $mod+n exec --no-startup-id nm-connection-editor
+bindsym $mod+b exec --no-startup-id blueman-manager
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -152,7 +175,7 @@ bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
 #bindsym $mod+s layout stacking
 #bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+#bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -202,6 +225,15 @@ bindsym $mod+Shift+7 move container to workspace number $ws7
 bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# Move the currently focused window to the hidden scratchpad
+bindsym $mod+Shift+s move scratchpad
+
+# Show the next scratchpad window (or hide it if it's already showing)
+bindsym $mod+s scratchpad show
+
+# move between this and the last workspace
+bindsym $mod+Tab workspace back_and_forth
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -256,11 +288,17 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+#bar {
+#        position top
+#        status_command i3status
+#}
 #polybar
 exec_always --no-startup-id ~/.config/polybar/polybar.sh &
 
 
-set $gap 5
+set $gap 3
 gaps inner $gap
 gaps outer $gap
 gaps horizontal $gap
@@ -274,13 +312,15 @@ gaps left $gap
 for_window [class="[Bb]rave"] move container to workspace $ws1
 for_window [class="[Ff]irefox"] move container to workspace $ws1
 for_window [class="[Ee]volution"] move container to workspace $ws5
+#for_window [class="^[Bb]lue[Mm]ail$"] move container to workspace $ws5
+#for_window [class="^[Bb]etterbird$"] move container to workspace $ws5
+for_window [class="^outlook-electron$"] move container to workspace $ws5
 for_window [class="[Zz]oom"] move container to workspace $ws6
 for_window [class="^join\?action=join.*$"] move container to workspace $ws6
-for_window [class="[Zz]ulip"] move container to workspace $ws8
-for_window [class="[Ss]lack"] move container to workspace $ws9
-for_window [class="^[Bb]lue[Mm]ail$"] move container to workspace $ws5
-for_window [class="^[Bb]etterbird$"] move container to workspace $ws5
 for_window [class="^[Tt]askade$"] move container to workspace $ws7
+for_window [class="[Oo]bsidian"] move container to workspace $ws8
+for_window [class="[Ss]lack"] move container to workspace $ws9
+for_window [class="^[Ee]lement$"] move container to workspace $ws9
 
 # Pulseaudio Pavucontrol window
 for_window [class="[Pp]avucontrol"] floating enable
@@ -299,14 +339,15 @@ for_window [title="^join\?action=join.*$"] floating enable
 for_window [class="^[Ss]ignal$"] floating enable
 for_window [class="^[Ee]volution$"] floating enable
 for_window [class="^[Bb]lue[Mm]ail$"] floating enable
-
+for_window [class="^[Bb]lueman-manager$"] floating enable
 
 ## BORDERS
-for_window [class="^.*"] border pixel 5
+for_window [class="^.*"] border pixel 7
 # class                 border  backgr. text    indicator child_border
 #client.focused         #4C7899 #285577 #FFFFFF #FF9EF4   #FF9EF4
-client.focused          #4C7899 #285577 #FFFFFF #CC9A48   #CC9A48
-client.focused_inactive #333333 #5F676A #FFFFFF #484E5000 #5F676A00
+#client.focused          #4C7899 #285577 #FFFFFF #CC9A48   #CC9A48
+client.focused          #4C7899 #285577 #FFFFFF #05D9FF   #05D9FF
+client.focused_inactive #333333 #5F676A #FFFFFF #5F676A   #5F676A
 client.unfocused        #333333 #222222 #888888 #292D2E   #222222
 client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
 client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
@@ -315,20 +356,21 @@ client.background       #FFFFFF
 
 # Autostart
 #exec --no-startup-id i3-msg "workspace 5; append_layout ~/.config/i3/workspace_layout/workspace-5.json"
-exec --no-startup-id i3-msg "workspace $ws10; exec kitty --session $i3-scripts-directory/kitty.setup"
+#exec --no-startup-id i3-msg "workspace $ws10; exec kitty --session $i3-scripts-directory/kitty.setup"
+exec --no-startup-id i3-msg "workspace $ws10; exec kitty btop"
 exec --no-startup-id i3-msg "workspace $ws2; exec kitty"
 exec --no-startup-id i3-msg "workspace $ws2; exec kitty"
 
 #exec --no-startup-id gnome-calendar
 #exec --no-startup-id gnome-weather
 #exec --no-startup-id taskade
-exec --no-startup-id slack
-exec --no-startup-id zulip
+exec --no-startup-id obsidian
+exec --no-startup-id outlook-electron
+exec --no-startup-id element-desktop
 exec --no-startup-id firefox
-#exec --no-startup-id brave
-exec --no-startup-id dropbox
-exec --no-startup-id betterbird
+#exec --no-startup-id betterbird
 #exec --no-startup-id thunderbird
+
 
 
 ## Start i3bar to display a workspace bar (plus the system information i3status
